@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_configurar_sheets"
+        android:title="Configurar Google Sheets"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_ventas_rapidas"
+        android:title="Venta Rápida"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_reportes"
+        android:title="Reportes"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_share"
+        android:title="Compartir Resumen"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_export_import"
+        android:title="Exportar/Importar"
+        app:showAsAction="never" />
+</menu>

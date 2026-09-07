@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/widget_root" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center" android:padding="12dp" android:background="#1B5E20">
+    <TextView android:id="@+id/tv_mes" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Septiembre" android:textSize="12sp" android:textColor="#A5D6A7"/>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="💰 Gastos" android:textSize="11sp" android:textColor="#FFFFFF"/>
+    <TextView android:id="@+id/tv_total" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="$0" android:textSize="20sp" android:textStyle="bold" android:textColor="#FFFFFF"/>
+    <TextView android:id="@+id/tv_viaje" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Viaje: $0" android:textSize="10sp" android:textColor="#A5D6A7"/>
+    <TextView android:id="@+id/tv_fijos" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Fijos: $0" android:textSize="10sp" android:textColor="#A5D6A7"/>
+</LinearLayout>

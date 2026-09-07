@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">OasisCheck</string>
+    <string name="agregar_venta">Agregar Venta</string>
+    <string name="editar_venta">Editar Venta</string>
+    <string name="lista_ventas">Ventas</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="balance">Balance</string>
+    <string name="planificadas">Planificadas</string>
+    <string name="agregar_planificada">Agregar Planificada</string>
+    <string name="editar_planificada">Editar Planificada</string>
+
+    <string name="fecha">Fecha</string>
+    <string name="cantidad">Cantidad</string>
+    <string name="precio_unitario">Precio Unitario</string>
+    <string name="total">Total</string>
+    <string name="lugar">Lugar</string>
+    <string name="categoria">Categoría</string>
+    <string name="info_venta">Info Venta</string>
+    <string name="cliente">Cliente</string>
+    <string name="total_estimado">Total Estimado</string>
+    <string name="notas">Notas</string>
+
+    <string name="guardar">Guardar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="editar">Editar</string>
+    <string name="confirmar_eliminar">¿Eliminar esta venta?</string>
+
+    <string name="total_ventas">Total Ventas</string>
+    <string name="total_inversiones">Total Inversiones</string>
+    <string name="ganancia_neta">Ganancia Neta</string>
+    <string name="unidades_vendidas">Unidades Vendidas</string>
+
+    <string name="por_lugar">Por Lugar</string>
+    <string name="por_categoria">Por Categoría</string>
+
+    <string name="seleccionar_fecha">Seleccionar Fecha</string>
+    <string name="todas">Todas</string>
+    <string name="sin_datos">Sin datos para mostrar</string>
+    <string name="sincronizado">Sincronizado</string>
+    <string name="no_sincronizado">Pendiente sync</string>
+
+    <string name="estado_pendiente">Pendiente</string>
+    <string name="estado_vendida">Vendida</string>
+    <string name="estado_cancelada">Cancelada</string>
+    <string name="marcar_vendida">Marcar como vendida</string>
+    <string name="convertir_a_venta">Convertir a venta real</string>
+</resources>

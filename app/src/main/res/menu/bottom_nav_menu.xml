@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/nav_ventas" android:icon="@android:drawable/ic_menu_agenda" android:title="Ventas"/>
+    <item android:id="@+id/nav_planificadas" android:icon="@android:drawable/ic_menu_my_calendar" android:title="Planificadas"/>
+    <item android:id="@+id/nav_pedidos" android:icon="@android:drawable/ic_menu_send" android:title="Pedidos"/>
+    <item android:id="@+id/nav_wishlist" android:icon="@android:drawable/btn_star" android:title="Wishlist"/>
+    <item android:id="@+id/nav_gastos" android:icon="@android:drawable/ic_menu_sort_by_size" android:title="Gastos"/>
+    <item android:id="@+id/nav_balance" android:icon="@android:drawable/ic_menu_info_details" android:title="Más"/>
+</menu>
