@@ -7,6 +7,12 @@
     <string name="dashboard">Dashboard</string>
     <string name="balance">Balance</string>
     <string name="planificadas">Planificadas</string>
+    <string name="intercambios">Intercambios</string>
+    <string name="agregar_intercambio">Agregar Intercambio</string>
+    <string name="editar_intercambio">Editar Intercambio</string>
+    <string name="planta_entregada">Planta que das</string>
+    <string name="planta_recibida">Planta que recibís</string>
+    <string name="persona">Persona</string>
     <string name="agregar_planificada">Agregar Planificada</string>
     <string name="editar_planificada">Editar Planificada</string>
 

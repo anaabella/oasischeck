@@ -20,6 +20,8 @@ import com.oasischeck.ui.agregar.AgregarVentaActivity;
 import com.oasischeck.ui.balance.BalanceActivity;
 import com.oasischeck.ui.gastos.AgregarGastoActivity;
 import com.oasischeck.ui.gastos.GastosFragment;
+import com.oasischeck.ui.intercambios.AgregarIntercambioActivity;
+import com.oasischeck.ui.intercambios.IntercambiosFragment;
 import com.oasischeck.ui.lista.ListaVentasFragment;
 import com.oasischeck.ui.pedidos.AgregarPedidoActivity;
 import com.oasischeck.ui.pedidos.PedidosFragment;
@@ -32,7 +34,7 @@ import com.oasischeck.ui.wishlist.AgregarWishActivity;
 import com.oasischeck.ui.wishlist.WishlistFragment;
 
 import androidx.work.ExistingPeriodicWorkPolicy;
-import androidx.work.PeriodicWorkRequestBuilder;
+import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
 import com.oasischeck.worker.RecurringGastoWorker;
@@ -92,10 +94,6 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new GastosFragment();
                 fab.show();
                 fab.setOnClickListener(v -> startActivity(new Intent(this, AgregarGastoActivity.class)));
-            } else if (id == R.id.nav_balance) {
-                startActivity(new Intent(this, BalanceActivity.class));
-                fab.hide();
-                return false;
             }
             if (fragment != null) loadFragment(fragment);
             return true;
@@ -105,12 +103,12 @@ public class MainActivity extends AppCompatActivity {
 
         WorkManager.getInstance(this).enqueueUniquePeriodicWork(
             "recurring_gastos", ExistingPeriodicWorkPolicy.KEEP,
-            new PeriodicWorkRequestBuilder<RecurringGastoWorker>(1, TimeUnit.DAYS).build()
+            new PeriodicWorkRequest.Builder(RecurringGastoWorker.class, 1, TimeUnit.DAYS).build()
         );
 
         WorkManager.getInstance(this).enqueueUniquePeriodicWork(
             "retry_sync", ExistingPeriodicWorkPolicy.KEEP,
-            new PeriodicWorkRequestBuilder<SyncRetryWorker>(30, TimeUnit.MINUTES).build()
+            new PeriodicWorkRequest.Builder(SyncRetryWorker.class, 30, TimeUnit.MINUTES).build()
         );
     }
 

@@ -17,6 +17,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.util.concurrent.Executors;
@@ -45,7 +46,7 @@ public class ExportActivity extends AppCompatActivity {
                 JSONObject root = new JSONObject();
 
                 JSONArray ventasArray = new JSONArray();
-                for (var v : db.ventaDao().getAll()) {
+                for (com.oasischeck.data.model.Venta v : db.ventaDao().getAll()) {
                     JSONObject obj = new JSONObject();
                     obj.put("id", v.id);
                     obj.put("fecha", v.fecha);
@@ -64,7 +65,7 @@ public class ExportActivity extends AppCompatActivity {
                 root.put("ventas", ventasArray);
 
                 JSONArray gastosArray = new JSONArray();
-                for (var g : db.gastoDao().getAll()) {
+                for (com.oasischeck.data.model.Gasto g : db.gastoDao().getAll()) {
                     JSONObject obj = new JSONObject();
                     obj.put("id", g.id);
                     obj.put("fecha", g.fecha);
@@ -78,7 +79,7 @@ public class ExportActivity extends AppCompatActivity {
                 root.put("gastos", gastosArray);
 
                 JSONArray pedidosArray = new JSONArray();
-                for (var p : db.pedidoDao().getAll()) {
+                for (com.oasischeck.data.model.Pedido p : db.pedidoDao().getAll()) {
                     JSONObject obj = new JSONObject();
                     obj.put("id", p.id);
                     obj.put("fecha", p.fecha);
@@ -95,7 +96,7 @@ public class ExportActivity extends AppCompatActivity {
                 root.put("pedidos", pedidosArray);
 
                 JSONArray plannedArray = new JSONArray();
-                for (var pv : db.plannedVentaDao().getAll()) {
+                for (com.oasischeck.data.model.PlannedVenta pv : db.plannedVentaDao().getAll()) {
                     JSONObject obj = new JSONObject();
                     obj.put("id", pv.id);
                     obj.put("fecha", pv.fecha);
@@ -111,7 +112,7 @@ public class ExportActivity extends AppCompatActivity {
                 root.put("ventas_planificadas", plannedArray);
 
                 JSONArray wishlistArray = new JSONArray();
-                for (var w : db.wishPlantaDao().getAll()) {
+                for (com.oasischeck.data.model.WishPlanta w : db.wishPlantaDao().getAll()) {
                     JSONObject obj = new JSONObject();
                     obj.put("id", w.id);
                     obj.put("nombre", w.nombre);

@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.CalendarContract;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -71,9 +72,10 @@ public class AgregarPlannedVentaActivity extends AppCompatActivity {
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(fechaSeleccionada);
         new DatePickerDialog(this, (view, year, month, day) -> {
-            fechaSeleccionada = new Calendar.Builder()
-                    .setDate(year, month, day)
-                    .build().getTimeInMillis();
+            Calendar c = Calendar.getInstance();
+            c.set(year, month, day, 0, 0, 0);
+            c.set(Calendar.MILLISECOND, 0);
+            fechaSeleccionada = c.getTimeInMillis();
             etFecha.setText(String.format("%d/%d/%d", day, month + 1, year));
         }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show();
     }

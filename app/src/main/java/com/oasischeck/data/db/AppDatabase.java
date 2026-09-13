@@ -8,12 +8,13 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 import com.oasischeck.data.model.Gasto;
+import com.oasischeck.data.model.Intercambio;
 import com.oasischeck.data.model.Pedido;
 import com.oasischeck.data.model.PlannedVenta;
 import com.oasischeck.data.model.Venta;
 import com.oasischeck.data.model.WishPlanta;
 
-@Database(entities = {Venta.class, PlannedVenta.class, Pedido.class, WishPlanta.class, Gasto.class}, version = 5, exportSchema = false)
+@Database(entities = {Venta.class, PlannedVenta.class, Pedido.class, WishPlanta.class, Gasto.class, Intercambio.class}, version = 6, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
     private static volatile AppDatabase INSTANCE;
@@ -23,6 +24,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract PedidoDao pedidoDao();
     public abstract WishPlantaDao wishPlantaDao();
     public abstract GastoDao gastoDao();
+    public abstract IntercambioDao intercambioDao();
 
     public static AppDatabase getInstance(Context context) {
         if (INSTANCE == null) {

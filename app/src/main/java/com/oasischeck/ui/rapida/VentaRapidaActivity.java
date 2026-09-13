@@ -37,9 +37,9 @@ public class VentaRapidaActivity extends AppCompatActivity {
         spinnerLugar = findViewById(R.id.spinner_lugar);
         spinnerDuenia = findViewById(R.id.spinner_duenia);
 
-        spinnerLugar.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1_line,
+        spinnerLugar.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,
                 com.oasischeck.util.AppConstants.LUGARES));
-        spinnerDuenia.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1_line,
+        spinnerDuenia.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,
                 com.oasischeck.util.AppConstants.DUENIAS));
 
         findViewById(R.id.btn_guardar).setOnClickListener(v -> guardar());

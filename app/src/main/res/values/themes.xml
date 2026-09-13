@@ -4,15 +4,19 @@
         <item name="colorPrimary">@color/green_primary</item>
         <item name="colorPrimaryDark">@color/green_primary_dark</item>
         <item name="colorAccent">@color/green_accent</item>
+        <item name="colorSecondary">@color/green_accent</item>
+        <item name="colorOnSurface">@color/text_primary</item>
         <item name="android:statusBarColor">@color/green_primary_dark</item>
     </style>
 
-    <style name="Theme.OasisCheck.NoActionBar" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorPrimary">@color/green_primary</item>
-        <item name="colorPrimaryDark">@color/green_primary_dark</item>
-        <item name="colorAccent">@color/green_accent</item>
-        <item name="android:statusBarColor">@color/green_primary_dark</item>
-    </style>
+     <style name="Theme.OasisCheck.NoActionBar" parent="Theme.MaterialComponents.Light.NoActionBar">
+         <item name="colorPrimary">@color/green_primary</item>
+         <item name="colorPrimaryDark">@color/green_primary_dark</item>
+         <item name="colorAccent">@color/green_accent</item>
+         <item name="colorSecondary">@color/green_accent</item>
+         <item name="colorOnSurface">@color/text_primary</item>
+         <item name="android:statusBarColor">@color/green_primary_dark</item>
+     </style>
 
     <style name="CardStyle">
         <item name="cardCornerRadius">12dp</item>

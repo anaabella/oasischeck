@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.oasischeck.data.db.AppDatabase;
+import com.oasischeck.data.model.Intercambio;
 import com.oasischeck.data.model.Venta;
 
 import java.io.BufferedReader;
@@ -87,6 +88,55 @@ public class GoogleSheetsService {
                 conn.disconnect();
             } catch (Exception e) {
                 Log.e(TAG, "Error sincronizando", e);
+            }
+        });
+    }
+
+    public static void sincronizarIntercambio(Context context, Intercambio intercambio) {
+        String webhookUrl = getWebhookUrl(context);
+        if (webhookUrl == null || webhookUrl.isEmpty()) {
+            Log.d(TAG, "No webhook configurado, sync pendiente");
+            return;
+        }
+
+        Executors.newSingleThreadExecutor().execute(() -> {
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("d/M/yyyy", Locale.getDefault());
+                String fecha = sdf.format(new Date(intercambio.fecha));
+
+                StringBuilder postData = new StringBuilder();
+                postData.append("sheet=intercambio");
+                postData.append("&fecha=").append(URLEncoder.encode(fecha, "UTF-8"));
+                postData.append("&planta_entregada=").append(URLEncoder.encode(
+                        intercambio.plantaEntregada != null ? intercambio.plantaEntregada : "", "UTF-8"));
+                postData.append("&planta_recibida=").append(URLEncoder.encode(
+                        intercambio.plantaRecibida != null ? intercambio.plantaRecibida : "", "UTF-8"));
+                postData.append("&persona=").append(URLEncoder.encode(
+                        intercambio.persona != null ? intercambio.persona : "", "UTF-8"));
+                postData.append("&notas=").append(URLEncoder.encode(
+                        intercambio.notas != null ? intercambio.notas : "", "UTF-8"));
+
+                URL url = new URL(webhookUrl);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setDoOutput(true);
+                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+                try (OutputStream os = conn.getOutputStream()) {
+                    os.write(postData.toString().getBytes("UTF-8"));
+                }
+
+                int responseCode = conn.getResponseCode();
+                if (responseCode == 200) {
+                    Log.d(TAG, "Intercambio sincronizado OK");
+                    AppDatabase.getInstance(context).intercambioDao().marcarSincronizado(intercambio.id);
+                } else {
+                    Log.e(TAG, "Error sync intercambio: " + responseCode);
+                }
+
+                conn.disconnect();
+            } catch (Exception e) {
+                Log.e(TAG, "Error sincronizando intercambio", e);
             }
         });
     }

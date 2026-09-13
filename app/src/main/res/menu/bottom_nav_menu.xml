@@ -5,5 +5,4 @@
     <item android:id="@+id/nav_pedidos" android:icon="@android:drawable/ic_menu_send" android:title="Pedidos"/>
     <item android:id="@+id/nav_wishlist" android:icon="@android:drawable/btn_star" android:title="Wishlist"/>
     <item android:id="@+id/nav_gastos" android:icon="@android:drawable/ic_menu_sort_by_size" android:title="Gastos"/>
-    <item android:id="@+id/nav_balance" android:icon="@android:drawable/ic_menu_info_details" android:title="Más"/>
 </menu>

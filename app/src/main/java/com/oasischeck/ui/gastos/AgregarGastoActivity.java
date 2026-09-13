@@ -47,7 +47,7 @@ public class AgregarGastoActivity extends AppCompatActivity {
         spinnerTipo = findViewById(R.id.spinner_tipo);
         switchRecurrente = findViewById(R.id.switch_recurrente);
 
-        spinnerTipo.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1_line,
+        spinnerTipo.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,
                 com.oasischeck.util.AppConstants.TIPOS_GASTO));
 
         etFecha.setText(dateFormat.format(fechaSeleccionada));
@@ -55,7 +55,10 @@ public class AgregarGastoActivity extends AppCompatActivity {
             Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis(fechaSeleccionada);
             new DatePickerDialog(this, (view, y, m, d) -> {
-                fechaSeleccionada = new Calendar.Builder().setDate(y, m, d).build().getTimeInMillis();
+                Calendar c = Calendar.getInstance();
+                c.set(y, m, d, 0, 0, 0);
+                c.set(Calendar.MILLISECOND, 0);
+                fechaSeleccionada = c.getTimeInMillis();
                 etFecha.setText(String.format("%d/%d/%d", d, m + 1, y));
             }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show();
         });

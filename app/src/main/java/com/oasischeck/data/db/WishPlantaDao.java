@@ -35,4 +35,7 @@ public interface WishPlantaDao {
 
     @Query("SELECT * FROM wishlist WHERE nombre LIKE :q ORDER BY nombre ASC")
     List<WishPlanta> search(String q);
+
+    @Query("DELETE FROM wishlist")
+    void deleteAll();
 }

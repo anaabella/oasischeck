@@ -76,13 +76,13 @@ public class EditarVentaActivity extends AppCompatActivity {
 
     private void setupSpinners() {
         spinnerLugar.setAdapter(new ArrayAdapter<>(this,
-                android.R.layout.simple_dropdown_item_1_line, com.oasischeck.util.AppConstants.LUGARES));
+                android.R.layout.simple_spinner_dropdown_item, com.oasischeck.util.AppConstants.LUGARES));
         spinnerCategoria.setAdapter(new ArrayAdapter<>(this,
-                android.R.layout.simple_dropdown_item_1_line, com.oasischeck.util.AppConstants.CATEGORIAS));
+                android.R.layout.simple_spinner_dropdown_item, com.oasischeck.util.AppConstants.CATEGORIAS));
         spinnerDuenia.setAdapter(new ArrayAdapter<>(this,
-                android.R.layout.simple_dropdown_item_1_line, com.oasischeck.util.AppConstants.DUENIAS));
+                android.R.layout.simple_spinner_dropdown_item, com.oasischeck.util.AppConstants.DUENIAS));
         spinnerEstadoDinero.setAdapter(new ArrayAdapter<>(this,
-                android.R.layout.simple_dropdown_item_1_line, com.oasischeck.util.AppConstants.ESTADOS_DINERO));
+                android.R.layout.simple_spinner_dropdown_item, com.oasischeck.util.AppConstants.ESTADOS_DINERO));
     }
 
     private void setupDatePicker() {
@@ -90,9 +90,10 @@ public class EditarVentaActivity extends AppCompatActivity {
             Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis(fechaSeleccionada);
             new DatePickerDialog(this, (view, year, month, day) -> {
-                fechaSeleccionada = new Calendar.Builder()
-                        .setDate(year, month, day)
-                        .build().getTimeInMillis();
+                Calendar c = Calendar.getInstance();
+                c.set(year, month, day, 0, 0, 0);
+                c.set(Calendar.MILLISECOND, 0);
+                fechaSeleccionada = c.getTimeInMillis();
                 etFecha.setText(String.format("%d/%d/%d", day, month + 1, year));
             }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show();
         });
