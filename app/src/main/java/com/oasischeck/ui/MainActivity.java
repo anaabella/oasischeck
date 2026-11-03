@@ -2,8 +2,11 @@ package com.oasischeck.ui;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -18,6 +21,9 @@ import com.oasischeck.data.db.AppDatabase;
 import com.oasischeck.sheets.GoogleSheetsService;
 import com.oasischeck.ui.agregar.AgregarVentaActivity;
 import com.oasischeck.ui.balance.BalanceActivity;
+import com.oasischeck.ui.cierre.CierreCajaActivity;
+import com.oasischeck.ui.cuentas.CuentasActivity;
+import com.oasischeck.ui.dashboard.DashboardActivity;
 import com.oasischeck.ui.gastos.AgregarGastoActivity;
 import com.oasischeck.ui.gastos.GastosFragment;
 import com.oasischeck.ui.intercambios.AgregarIntercambioActivity;
@@ -37,8 +43,11 @@ import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
+import com.oasischeck.worker.AutoBackupWorker;
 import com.oasischeck.worker.RecurringGastoWorker;
+import com.oasischeck.worker.ReminderWorker;
 import com.oasischeck.worker.SyncRetryWorker;
+import com.oasischeck.util.NotificationHelper;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -59,12 +68,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setSupportActionBar(findViewById(R.id.toolbar));
-
-        SharedPreferences prefs = getSharedPreferences(PREFS_SHEETS, MODE_PRIVATE);
-        if (prefs.getString(KEY_WEBHOOK, "").isEmpty()) {
-            GoogleSheetsService.configurarWebhook(this,
-                "https://script.google.com/macros/s/AKfycbznIbSVphiZYwtbWEqq3bX75d9Zbic_CZYIL_YCx7LxSlF8W2po1JjEQP9AJpJOX8TbCw/exec");
-        }
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
         FloatingActionButton fab = findViewById(R.id.fab_agregar);
@@ -110,6 +113,51 @@ public class MainActivity extends AppCompatActivity {
             "retry_sync", ExistingPeriodicWorkPolicy.KEEP,
             new PeriodicWorkRequest.Builder(SyncRetryWorker.class, 30, TimeUnit.MINUTES).build()
         );
+
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+            "auto_backup", ExistingPeriodicWorkPolicy.KEEP,
+            new PeriodicWorkRequest.Builder(AutoBackupWorker.class, 1, TimeUnit.DAYS).build()
+        );
+
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+            "recordatorios", ExistingPeriodicWorkPolicy.KEEP,
+            new PeriodicWorkRequest.Builder(ReminderWorker.class, 1, TimeUnit.DAYS).build()
+        );
+
+        NotificationHelper.crearCanal(this);
+        solicitarPermisoNotificaciones();
+
+        actualizarEstadoSync();
+    }
+
+    private void solicitarPermisoNotificaciones() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+                checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS)
+                        != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 200);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        actualizarEstadoSync();
+    }
+
+    private void actualizarEstadoSync() {
+        TextView tv = findViewById(R.id.tv_sync_status);
+        if (tv == null) return;
+        Executors.newSingleThreadExecutor().execute(() -> {
+            int pendientes = AppDatabase.getInstance(this).ventaDao().getNoSincronizadas().size();
+            runOnUiThread(() -> {
+                if (pendientes > 0) {
+                    tv.setText(pendientes + " venta(s) pendientes de sincronizar");
+                    tv.setVisibility(android.view.View.VISIBLE);
+                } else {
+                    tv.setVisibility(android.view.View.GONE);
+                }
+            });
+        });
     }
 
     @Override
@@ -121,7 +169,25 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(android.view.MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_configurar_sheets) {
+        if (id == R.id.action_dashboard) {
+            startActivity(new Intent(this, DashboardActivity.class));
+            return true;
+        } else if (id == R.id.action_balance) {
+            startActivity(new Intent(this, BalanceActivity.class));
+            return true;
+        } else if (id == R.id.action_intercambios) {
+            loadFragment(new IntercambiosFragment());
+            FloatingActionButton fab = findViewById(R.id.fab_agregar);
+            fab.show();
+            fab.setOnClickListener(v -> startActivity(new Intent(this, AgregarIntercambioActivity.class)));
+            return true;
+        } else if (id == R.id.action_cuentas) {
+            startActivity(new Intent(this, CuentasActivity.class));
+            return true;
+        } else if (id == R.id.action_cierre_caja) {
+            startActivity(new Intent(this, CierreCajaActivity.class));
+            return true;
+        } else if (id == R.id.action_configurar_sheets) {
             mostrarDialogoConfigSheets();
             return true;
         } else if (id == R.id.action_ventas_rapidas) {

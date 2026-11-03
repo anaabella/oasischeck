@@ -8,6 +8,7 @@ public class WishPlanta {
     @PrimaryKey(autoGenerate = true)
     public long id;
 
+    public long actualizadoEn;
     public String nombre;
     public double precioVisto;
     public String lugarVisto;

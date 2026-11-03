@@ -38,7 +38,7 @@
                     style="@style/InputStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Fecha">
+                    android:hint="@string/fecha">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_fecha"
@@ -54,7 +54,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:hint="Cliente">
+                    android:hint="@string/cliente">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_cliente"
@@ -69,7 +69,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:hint="Qué vas a vender">
+                    android:hint="@string/que_vas_a_vender">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_info"
@@ -85,7 +85,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:hint="Total estimado"
+                    android:hint="@string/total_estimado"
                     app:prefixText="$">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -101,7 +101,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:hint="Notas (opcional)">
+                    android:hint="@string/notas_opcional">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_notas"
@@ -121,7 +121,7 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="16dp"
-            android:text="Guardar"
+            android:text="@string/guardar"
             android:textSize="16sp"
             app:backgroundTint="@color/green_primary"
             app:cornerRadius="12dp" />
@@ -132,10 +132,23 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="8dp"
-            android:text="📅 Agregar al calendario"
+            android:text="@string/agregar_al_calendario"
             android:textSize="14sp"
             app:strokeColor="@color/green_primary"
             android:textColor="@color/green_primary"
+            app:cornerRadius="12dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_eliminar"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/eliminar"
+            android:textSize="14sp"
+            android:visibility="gone"
+            app:strokeColor="@android:color/holo_red_dark"
+            android:textColor="@android:color/holo_red_dark"
             app:cornerRadius="12dp" />
 
     </LinearLayout>

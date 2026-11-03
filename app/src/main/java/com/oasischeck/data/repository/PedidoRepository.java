@@ -4,6 +4,8 @@ import android.app.Application;
 
 import com.oasischeck.data.db.AppDatabase;
 import com.oasischeck.data.db.PedidoDao;
+import com.oasischeck.data.db.SyncStateDao;
+import com.oasischeck.data.db.SyncTracker;
 import com.oasischeck.data.model.Pedido;
 
 import java.util.List;
@@ -12,11 +14,13 @@ import java.util.concurrent.Executors;
 
 public class PedidoRepository {
     private final PedidoDao dao;
+    private final SyncStateDao syncDao;
     private final ExecutorService executor;
 
     public PedidoRepository(Application application) {
         AppDatabase db = AppDatabase.getInstance(application);
         dao = db.pedidoDao();
+        syncDao = db.syncStateDao();
         executor = Executors.newFixedThreadPool(2);
     }
 
@@ -26,20 +30,27 @@ public class PedidoRepository {
 
     public void insert(Pedido p, Callback<Long> callback) {
         executor.execute(() -> {
+            long ts = System.currentTimeMillis();
+            p.actualizadoEn = ts;
             long id = dao.insert(p);
+            SyncTracker.registrar(syncDao, SyncTracker.TIPO_PEDIDO, id, ts);
             if (callback != null) callback.onResult(id);
         });
     }
 
     public void update(Pedido p, Runnable callback) {
         executor.execute(() -> {
+            long ts = System.currentTimeMillis();
+            p.actualizadoEn = ts;
             dao.update(p);
+            SyncTracker.registrar(syncDao, SyncTracker.TIPO_PEDIDO, p.id, ts);
             if (callback != null) callback.run();
         });
     }
 
     public void delete(Pedido p, Runnable callback) {
         executor.execute(() -> {
+            SyncTracker.marcarEliminado(syncDao, SyncTracker.TIPO_PEDIDO, p.id);
             dao.delete(p);
             if (callback != null) callback.run();
         });

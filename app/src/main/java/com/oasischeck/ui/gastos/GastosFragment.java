@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,6 +34,7 @@ public class GastosFragment extends Fragment {
     private ProgressBar progressBar;
     private final NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(new Locale("es", "AR"));
     private int filtroTipo = -1;
+    private String query = "";
     private List<Gasto> todos = new ArrayList<>();
 
     @Nullable
@@ -52,6 +54,16 @@ public class GastosFragment extends Fragment {
         tvSinDatos = view.findViewById(R.id.tv_sin_datos);
         progressBar = view.findViewById(R.id.progress_bar);
         MaterialButton btnFiltrar = view.findViewById(R.id.btn_filtrar_tipo);
+        SearchView searchView = view.findViewById(R.id.search_view);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override public boolean onQueryTextSubmit(String s) { return false; }
+            @Override public boolean onQueryTextChange(String s) {
+                query = s != null ? s.trim().toLowerCase(Locale.getDefault()) : "";
+                aplicarFiltro();
+                return true;
+            }
+        });
 
         recycler.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new GastosAdapter(
@@ -111,12 +123,13 @@ public class GastosFragment extends Fragment {
     private void aplicarFiltro() {
         List<Gasto> filtrados = new ArrayList<>();
         double total = 0;
+        String[] tipos = {Gasto.TIPO_VIAJE, Gasto.TIPO_FIJO, Gasto.TIPO_INSUMO, Gasto.TIPO_OTRO};
         for (Gasto g : todos) {
-            boolean pasa = filtroTipo == -1 || g.tipo.equals(Gasto.TIPO_VIAJE) && filtroTipo == 0 ||
-                    g.tipo.equals(Gasto.TIPO_FIJO) && filtroTipo == 1 ||
-                    g.tipo.equals(Gasto.TIPO_INSUMO) && filtroTipo == 2 ||
-                    g.tipo.equals(Gasto.TIPO_OTRO) && filtroTipo == 3;
-            if (filtroTipo == -1 || pasa) {
+            boolean pasaTipo = filtroTipo == -1 || (filtroTipo >= 0 && filtroTipo < tipos.length && tipos[filtroTipo].equals(g.tipo));
+            boolean pasaQuery = query.isEmpty()
+                    || (g.concepto != null && g.concepto.toLowerCase(Locale.getDefault()).contains(query))
+                    || (g.notas != null && g.notas.toLowerCase(Locale.getDefault()).contains(query));
+            if (pasaTipo && pasaQuery) {
                 filtrados.add(g);
                 total += g.monto;
             }

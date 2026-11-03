@@ -111,6 +111,10 @@ public class AgregarPedidoActivity extends AppCompatActivity {
             etTotal.setError("Precio inválido");
             return;
         }
+        if (p.total < 0) {
+            etTotal.setError("El total no puede ser negativo");
+            return;
+        }
         p.notas = etNotas.getText() != null ? etNotas.getText().toString().trim() : "";
         if (pedidoExistente == null) p.creadoEn = System.currentTimeMillis();
 

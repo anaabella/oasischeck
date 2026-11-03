@@ -2,6 +2,10 @@ plugins {
     id("com.android.application")
 }
 
+if (file("google-services.json").exists()) {
+    apply(plugin = "com.google.gms.google-services")
+}
+
 android {
     namespace = "com.oasischeck"
     compileSdk = 34
@@ -12,6 +16,7 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -52,4 +57,18 @@ dependencies {
 
     // Activity Result API
     implementation("androidx.activity:activity:1.8.2")
+
+    // Firebase (Auth + Firestore). Solo se activa si google-services.json existe.
+    implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-firestore")
+
+    // Unit tests
+    testImplementation("junit:junit:4.13.2")
+
+    // Instrumented tests
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test:runner:1.5.2")
+    androidTestImplementation("androidx.test:core:1.5.0")
+    androidTestImplementation("androidx.room:room-testing:2.6.1")
 }

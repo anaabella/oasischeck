@@ -2,6 +2,26 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/action_dashboard"
+        android:title="Dashboard"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_balance"
+        android:title="Balance"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_intercambios"
+        android:title="Intercambios"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_cuentas"
+        android:title="Cuentas por cobrar/pagar"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_cierre_caja"
+        android:title="Cierre de caja"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_configurar_sheets"
         android:title="Configurar Google Sheets"
         app:showAsAction="never" />

@@ -4,6 +4,8 @@ import android.app.Application;
 
 import com.oasischeck.data.db.AppDatabase;
 import com.oasischeck.data.db.IntercambioDao;
+import com.oasischeck.data.db.SyncStateDao;
+import com.oasischeck.data.db.SyncTracker;
 import com.oasischeck.data.model.Intercambio;
 
 import java.util.List;
@@ -12,24 +14,42 @@ import java.util.concurrent.Executors;
 
 public class IntercambioRepository {
     private final IntercambioDao intercambioDao;
+    private final SyncStateDao syncDao;
     private final ExecutorService executor;
 
     public IntercambioRepository(Application application) {
         AppDatabase db = AppDatabase.getInstance(application);
         intercambioDao = db.intercambioDao();
+        syncDao = db.syncStateDao();
         executor = Executors.newFixedThreadPool(2);
     }
 
     public interface Callback<T> { void onResult(T result); }
 
     public void insert(Intercambio intercambio, Callback<Long> callback) {
-        executor.execute(() -> { long id = intercambioDao.insert(intercambio); if (callback != null) callback.onResult(id); });
+        executor.execute(() -> {
+            long ts = System.currentTimeMillis();
+            intercambio.actualizadoEn = ts;
+            long id = intercambioDao.insert(intercambio);
+            SyncTracker.registrar(syncDao, SyncTracker.TIPO_INTERCAMBIO, id, ts);
+            if (callback != null) callback.onResult(id);
+        });
     }
     public void update(Intercambio intercambio, Runnable callback) {
-        executor.execute(() -> { intercambioDao.update(intercambio); if (callback != null) callback.run(); });
+        executor.execute(() -> {
+            long ts = System.currentTimeMillis();
+            intercambio.actualizadoEn = ts;
+            intercambioDao.update(intercambio);
+            SyncTracker.registrar(syncDao, SyncTracker.TIPO_INTERCAMBIO, intercambio.id, ts);
+            if (callback != null) callback.run();
+        });
     }
     public void delete(Intercambio intercambio, Runnable callback) {
-        executor.execute(() -> { intercambioDao.delete(intercambio); if (callback != null) callback.run(); });
+        executor.execute(() -> {
+            SyncTracker.marcarEliminado(syncDao, SyncTracker.TIPO_INTERCAMBIO, intercambio.id);
+            intercambioDao.delete(intercambio);
+            if (callback != null) callback.run();
+        });
     }
     public void getAll(Callback<List<Intercambio>> callback) {
         executor.execute(() -> { if (callback != null) callback.onResult(intercambioDao.getAll()); });

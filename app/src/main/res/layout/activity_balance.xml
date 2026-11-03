@@ -44,7 +44,7 @@
                     android:id="@+id/tv_ganancia_neta"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="$0"
+                    android:text="@string/n_0"
                     android:textSize="32sp"
                     android:textStyle="bold"
                     android:textColor="@color/white"
@@ -76,7 +76,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ingresos"
+                        android:text="@string/ingresos"
                         android:textSize="12sp"
                         android:textColor="@color/text_secondary"
                         android:textStyle="bold" />
@@ -85,7 +85,7 @@
                         android:id="@+id/tv_ingresos"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="$0"
+                        android:text="@string/n_0"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:textColor="@color/green_primary" />
@@ -110,7 +110,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Inversiones"
+                        android:text="@string/inversiones"
                         android:textSize="12sp"
                         android:textColor="@color/text_secondary"
                         android:textStyle="bold" />
@@ -119,7 +119,7 @@
                         android:id="@+id/tv_inversiones"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="$0"
+                        android:text="@string/n_0"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:textColor="@color/red" />

@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/green_primary"
-        app:title="Exportar / Importar"
+        app:title="@string/exportar_importar"
         app:titleTextColor="@color/white"
         app:navigationIcon="?attr/homeAsUpIndicator"
         app:navigationIconTint="@color/white"/>
@@ -28,17 +28,36 @@
             style="@style/Widget.MaterialComponents.Button"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="Exportar a JSON"
+            android:text="@string/compartir_backup_json"
             android:textSize="16sp"
             android:layout_marginBottom="16dp"
             app:backgroundTint="@color/green_primary"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_exportar_nube"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="@string/guardar_copia_en_la_nube"
+            android:textSize="16sp"
+            android:layout_marginBottom="16dp"
+            app:backgroundTint="@color/green_primary"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:text="@string/elegi_google_drive_onedrive_o_el_almacenamiento"
+            android:textColor="@color/text_secondary"
+            android:textSize="13sp"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_importar"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="Importar desde JSON"
+            android:text="@string/restaurar_desde_archivo_o_nube"
             android:textSize="16sp"
             app:strokeColor="@color/green_primary"
             android:textColor="@color/green_primary"/>

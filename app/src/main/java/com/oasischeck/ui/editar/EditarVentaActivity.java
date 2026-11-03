@@ -158,6 +158,14 @@ public class EditarVentaActivity extends AppCompatActivity {
             Toast.makeText(this, "Ingresá valores numéricos válidos", Toast.LENGTH_SHORT).show();
             return;
         }
+        if (ventaActual.cantidad <= 0) {
+            etCantidad.setError("Debe ser mayor a cero");
+            return;
+        }
+        if (ventaActual.precioUnitario < 0) {
+            etPrecio.setError("El precio no puede ser negativo");
+            return;
+        }
         ventaActual.calcularTotal();
         ventaActual.lugar = spinnerLugar.getText().toString();
         ventaActual.categoria = spinnerCategoria.getText().toString();

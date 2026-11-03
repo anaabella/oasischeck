@@ -6,6 +6,16 @@
     android:orientation="vertical"
     android:background="@color/background">
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/card_background"
+        android:iconifiedByDefault="false"
+        android:queryHint="Buscar por cliente o producto..." />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,21 +29,7 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:text="Todos"
-            android:textSize="12sp"
-            app:strokeColor="@color/green_primary"
-            android:textColor="@color/green_primary"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            app:cornerRadius="8dp" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_buscar_cliente"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:layout_marginStart="4dp"
-            android:text="Buscar cliente"
+            android:text="@string/activos"
             android:textSize="12sp"
             app:strokeColor="@color/green_primary"
             android:textColor="@color/green_primary"
@@ -58,7 +54,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="No hay pedidos"
+        android:text="@string/no_hay_pedidos"
         android:textSize="16sp"
         android:textColor="@color/text_secondary"
         android:visibility="gone" />

@@ -8,6 +8,7 @@ public class Pedido {
     @PrimaryKey(autoGenerate = true)
     public long id;
 
+    public long actualizadoEn;
     public long fecha;           // Fecha del pedido
     public String cliente;       // Nombre del cliente
     public String productos;     // Qué pidió

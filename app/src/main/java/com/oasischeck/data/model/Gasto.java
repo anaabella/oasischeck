@@ -8,6 +8,7 @@ public class Gasto {
     @PrimaryKey(autoGenerate = true)
     public long id;
 
+    public long actualizadoEn;
     public long fecha;
     public String concepto;
     public double monto;

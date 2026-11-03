@@ -17,7 +17,8 @@ import com.oasischeck.sheets.GoogleSheetsService;
 
 public class VentaRapidaActivity extends AppCompatActivity {
 
-    private TextInputEditText etPlanta, etPrecio, etInfo;
+    private TextInputEditText etPrecio, etInfo;
+    private AutoCompleteTextView etPlanta;
     private AutoCompleteTextView spinnerLugar, spinnerDuenia;
     private VentaRepository repository;
 
@@ -64,6 +65,10 @@ public class VentaRapidaActivity extends AppCompatActivity {
             precio = Double.parseDouble(etPrecio.getText().toString());
         } catch (NumberFormatException e) {
             Toast.makeText(this, "Ingresá un precio válido", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (precio <= 0) {
+            etPrecio.setError("El precio debe ser mayor a cero");
             return;
         }
 

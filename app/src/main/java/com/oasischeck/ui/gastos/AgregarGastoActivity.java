@@ -109,6 +109,10 @@ public class AgregarGastoActivity extends AppCompatActivity {
             etMonto.setError("Precio inválido");
             return;
         }
+        if (g.monto <= 0) {
+            etMonto.setError("El monto debe ser mayor a cero");
+            return;
+        }
         g.tipo = spinnerTipo.getText().toString();
         g.recurrente = switchRecurrente.isChecked();
         g.notas = etNotas.getText() != null ? etNotas.getText().toString().trim() : "";

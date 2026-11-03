@@ -8,6 +8,7 @@ public class Intercambio {
     @PrimaryKey(autoGenerate = true)
     public long id;
 
+    public long actualizadoEn;
     public long fecha;
     public String plantaEntregada;
     public String plantaRecibida;

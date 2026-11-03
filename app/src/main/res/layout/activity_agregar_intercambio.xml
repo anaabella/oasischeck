@@ -18,7 +18,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/green_primary"
             app:navigationIcon="@drawable/ic_back"
-            app:title="Agregar Intercambio"
+            app:title="@string/agregar_intercambio"
             app:titleTextColor="@color/white"
             app:navigationIconTint="@color/white" />
 
@@ -38,7 +38,7 @@
                     style="@style/InputStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Fecha">
+                    android:hint="@string/fecha">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_fecha"
@@ -54,7 +54,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:hint="Planta que das">
+                    android:hint="@string/planta_entregada">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_planta_entregada"
@@ -69,7 +69,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:hint="Planta que recibís">
+                    android:hint="@string/planta_recibida">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_planta_recibida"
@@ -84,7 +84,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:hint="Persona">
+                    android:hint="@string/persona">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_persona"
@@ -99,7 +99,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:hint="Notas (opcional)">
+                    android:hint="@string/notas_opcional">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_notas"
@@ -119,7 +119,7 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="16dp"
-            android:text="Guardar"
+            android:text="@string/guardar"
             android:textSize="16sp"
             app:backgroundTint="@color/green_primary"
             app:cornerRadius="12dp" />
@@ -130,7 +130,7 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="8dp"
-            android:text="Eliminar"
+            android:text="@string/eliminar"
             android:textColor="@color/red"
             app:strokeColor="@color/red"
             app:cornerRadius="12dp"

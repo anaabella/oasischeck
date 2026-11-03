@@ -8,6 +8,7 @@ public class PlannedVenta {
     @PrimaryKey(autoGenerate = true)
     public long id;
 
+    public long actualizadoEn;
     public long fecha;           // Fecha planificada
     public String cliente;       // Nombre del cliente
     public String infoVenta;     // Qué le vas a vender

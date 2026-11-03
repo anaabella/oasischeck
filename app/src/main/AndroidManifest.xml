@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <application android:allowBackup="true" android:icon="@mipmap/ic_launcher" android:label="@string/app_name" android:roundIcon="@mipmap/ic_launcher_round" android:supportsRtl="true" android:theme="@style/Theme.OasisCheck" tools:targetApi="31">
         <activity android:name=".ui.MainActivity" android:exported="true">
             <intent-filter>
@@ -12,6 +13,10 @@
         <activity android:name=".ui.agregar.AgregarVentaActivity" />
         <activity android:name=".ui.editar.EditarVentaActivity" />
         <activity android:name=".ui.balance.BalanceActivity" />
+        <activity android:name=".ui.dashboard.DashboardActivity" />
+        <activity android:name=".ui.cuentas.CuentasActivity" />
+        <activity android:name=".ui.cuentas.AgregarCuentaActivity" />
+        <activity android:name=".ui.cierre.CierreCajaActivity" />
         <activity android:name=".ui.planificadas.AgregarPlannedVentaActivity" />
         <activity android:name=".ui.pedidos.AgregarPedidoActivity" />
         <activity android:name=".ui.rapida.VentaRapidaActivity" />

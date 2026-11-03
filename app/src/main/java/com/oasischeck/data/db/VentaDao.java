@@ -75,6 +75,15 @@ public interface VentaDao {
     @Query("SELECT SUM(total) FROM ventas WHERE estadoDinero = :estado AND categoria != 'Inversion'")
     Double getTotalPorEstadoDinero(String estado);
 
+    @Query("SELECT SUM(total) FROM ventas WHERE lugar = :lugar AND categoria != 'Inversion' AND fecha BETWEEN :inicio AND :fin")
+    Double getTotalPorLugarRango(String lugar, long inicio, long fin);
+
+    @Query("SELECT SUM(total) FROM ventas WHERE categoria = :cat AND categoria != 'Inversion' AND fecha BETWEEN :inicio AND :fin")
+    Double getTotalPorCategoriaRango(String cat, long inicio, long fin);
+
+    @Query("SELECT SUM(total) FROM ventas WHERE estadoDinero = :estado AND categoria != 'Inversion' AND fecha BETWEEN :inicio AND :fin")
+    Double getTotalPorEstadoDineroRango(String estado, long inicio, long fin);
+
     @Query("SELECT nombrePlanta, SUM(cantidad) as cant, SUM(total) as tot FROM ventas WHERE categoria != 'Inversion' AND nombrePlanta IS NOT NULL AND nombrePlanta != '' GROUP BY nombrePlanta ORDER BY cant DESC LIMIT :limit")
     List<PlantaStats> getTopPlantas(int limit);
 

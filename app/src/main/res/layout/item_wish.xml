@@ -11,7 +11,7 @@
         <TextView android:id="@+id/tv_precio_visto" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:textSize="14sp" android:textColor="@color/green_primary"/>
         <TextView android:id="@+id/tv_notas" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:textSize="12sp" android:textColor="@color/text_secondary" android:visibility="gone"/>
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="6dp" android:gravity="end">
-            <Button android:id="@+id/btn_comprada" android:layout_width="wrap_content" android:layout_height="36dp" android:text="🌱 Ya la tengo!" android:textSize="11sp" android:textAllCaps="false"/>
+            <Button android:id="@+id/btn_comprada" android:layout_width="wrap_content" android:layout_height="36dp" android:text="@string/ya_la_tengo" android:textSize="11sp" android:textAllCaps="false"/>
         </LinearLayout>
         </LinearLayout>
     </LinearLayout>

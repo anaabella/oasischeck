@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,6 +27,7 @@ public class PedidoAdapter extends RecyclerView.Adapter<PedidoAdapter.ViewHolder
         void onPreparado(Pedido p);
         void onEntregado(Pedido p);
         void onEliminar(Pedido p);
+        void onCompartir(Pedido p);
     }
 
     private List<Pedido> items = new ArrayList<>();
@@ -85,6 +87,7 @@ public class PedidoAdapter extends RecyclerView.Adapter<PedidoAdapter.ViewHolder
 
         holder.btnPreparado.setOnClickListener(v -> listener.onPreparado(p));
         holder.btnEntregado.setOnClickListener(v -> listener.onEntregado(p));
+        holder.btnCompartir.setOnClickListener(v -> listener.onCompartir(p));
 
         holder.itemView.setOnClickListener(v -> listener.onClick(p));
         holder.itemView.setOnLongClickListener(v -> {
@@ -101,6 +104,7 @@ public class PedidoAdapter extends RecyclerView.Adapter<PedidoAdapter.ViewHolder
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvFecha, tvEstado, tvCliente, tvProductos, tvTotal;
         Button btnPreparado, btnEntregado;
+        ImageButton btnCompartir;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -111,6 +115,7 @@ public class PedidoAdapter extends RecyclerView.Adapter<PedidoAdapter.ViewHolder
             tvTotal = itemView.findViewById(R.id.tv_total);
             btnPreparado = itemView.findViewById(R.id.btn_preparado);
             btnEntregado = itemView.findViewById(R.id.btn_entregado);
+            btnCompartir = itemView.findViewById(R.id.btn_compartir);
         }
     }
 }

@@ -114,6 +114,10 @@ public class AgregarPlannedVentaActivity extends AppCompatActivity {
             etTotal.setError("Precio inválido");
             return;
         }
+        if (p.totalEstimado < 0) {
+            etTotal.setError("El total no puede ser negativo");
+            return;
+        }
         p.notas = etNotas.getText() != null ? etNotas.getText().toString().trim() : "";
         p.creadoEn = planificadaExistente != null ? planificadaExistente.creadoEn : System.currentTimeMillis();
 

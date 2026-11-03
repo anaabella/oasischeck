@@ -112,7 +112,12 @@ public class AgregarWishActivity extends AppCompatActivity {
         w.nombre = etNombre.getText().toString().trim();
         w.precioVisto = 0;
         if (etPrecio.getText() != null && !etPrecio.getText().toString().isEmpty()) {
-            try { w.precioVisto = Double.parseDouble(etPrecio.getText().toString()); } catch (NumberFormatException ignored) {}
+            try {
+                w.precioVisto = Double.parseDouble(etPrecio.getText().toString());
+            } catch (NumberFormatException e) {
+                etPrecio.setError("Precio inválido");
+                return;
+            }
         }
         w.lugarVisto = etLugar.getText() != null ? etLugar.getText().toString().trim() : "";
         w.notas = etNotas.getText() != null ? etNotas.getText().toString().trim() : "";
@@ -121,7 +126,12 @@ public class AgregarWishActivity extends AppCompatActivity {
         String precioCompradaStr = etPrecioComprada.getText() != null ? etPrecioComprada.getText().toString() : "";
         if (!precioCompradaStr.isEmpty()) {
             w.comprada = true;
-            try { w.precioComprada = Double.parseDouble(precioCompradaStr); } catch (NumberFormatException ignored) { w.precioComprada = 0; }
+            try {
+                w.precioComprada = Double.parseDouble(precioCompradaStr);
+            } catch (NumberFormatException e) {
+                etPrecioComprada.setError("Precio inválido");
+                return;
+            }
             w.fechaComprada = System.currentTimeMillis();
         }
 

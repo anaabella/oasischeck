@@ -86,7 +86,7 @@
                         android:id="@+id/btn_marcar_vendida"
                         android:layout_width="wrap_content"
                         android:layout_height="36dp"
-                        android:text="✓ Vendida"
+                        android:text="@string/vendida"
                         android:textSize="11sp"
                         android:textAllCaps="false"
                         android:visibility="gone" />
@@ -96,7 +96,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="36dp"
                         android:layout_marginStart="4dp"
-                        android:text="✗ Cancelar"
+                        android:text="@string/cancelar_2"
                         android:textSize="11sp"
                         android:textAllCaps="false"
                         android:visibility="gone" />

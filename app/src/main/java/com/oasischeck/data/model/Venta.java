@@ -8,6 +8,7 @@ public class Venta {
     @PrimaryKey(autoGenerate = true)
     public long id;
 
+    public long actualizadoEn;
     public long fecha;
     public int cantidad;
     public double precioUnitario;

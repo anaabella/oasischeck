@@ -23,7 +23,8 @@ import java.util.Locale;
 
 public class AgregarVentaActivity extends AppCompatActivity {
 
-    private TextInputEditText etFecha, etCantidad, etPrecio, etInfo, etNombrePlanta;
+    private TextInputEditText etFecha, etCantidad, etPrecio, etInfo;
+    private AutoCompleteTextView etNombrePlanta;
     private AutoCompleteTextView spinnerLugar, spinnerCategoria, spinnerDuenia;
     private TextView tvTotal;
     private VentaRepository repository;
@@ -133,6 +134,8 @@ public class AgregarVentaActivity extends AppCompatActivity {
             Toast.makeText(this, "Ingresá un número válido", Toast.LENGTH_SHORT).show();
             return;
         }
+        if (cantidad <= 0) { etCantidad.setError("Debe ser mayor a cero"); return; }
+        if (precio < 0) { etPrecio.setError("El precio no puede ser negativo"); return; }
         String lugar = spinnerLugar.getText().toString();
         String categoria = spinnerCategoria.getText().toString();
         String info = etInfo.getText() != null ? etInfo.getText().toString() : "";

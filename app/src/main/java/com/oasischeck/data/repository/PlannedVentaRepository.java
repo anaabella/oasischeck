@@ -4,6 +4,8 @@ import android.app.Application;
 
 import com.oasischeck.data.db.AppDatabase;
 import com.oasischeck.data.db.PlannedVentaDao;
+import com.oasischeck.data.db.SyncStateDao;
+import com.oasischeck.data.db.SyncTracker;
 import com.oasischeck.data.model.PlannedVenta;
 
 import java.util.List;
@@ -12,11 +14,13 @@ import java.util.concurrent.Executors;
 
 public class PlannedVentaRepository {
     private final PlannedVentaDao dao;
+    private final SyncStateDao syncDao;
     private final ExecutorService executor;
 
     public PlannedVentaRepository(Application application) {
         AppDatabase db = AppDatabase.getInstance(application);
         dao = db.plannedVentaDao();
+        syncDao = db.syncStateDao();
         executor = Executors.newFixedThreadPool(2);
     }
 
@@ -26,20 +30,27 @@ public class PlannedVentaRepository {
 
     public void insert(PlannedVenta p, Callback<Long> callback) {
         executor.execute(() -> {
+            long ts = System.currentTimeMillis();
+            p.actualizadoEn = ts;
             long id = dao.insert(p);
+            SyncTracker.registrar(syncDao, SyncTracker.TIPO_PLANIFICADA, id, ts);
             if (callback != null) callback.onResult(id);
         });
     }
 
     public void update(PlannedVenta p, Runnable callback) {
         executor.execute(() -> {
+            long ts = System.currentTimeMillis();
+            p.actualizadoEn = ts;
             dao.update(p);
+            SyncTracker.registrar(syncDao, SyncTracker.TIPO_PLANIFICADA, p.id, ts);
             if (callback != null) callback.run();
         });
     }
 
     public void delete(PlannedVenta p, Runnable callback) {
         executor.execute(() -> {
+            SyncTracker.marcarEliminado(syncDao, SyncTracker.TIPO_PLANIFICADA, p.id);
             dao.delete(p);
             if (callback != null) callback.run();
         });

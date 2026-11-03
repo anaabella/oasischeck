@@ -1,16 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/background">
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
-        <com.google.android.material.appbar.MaterialToolbar android:id="@+id/toolbar" android:layout_width="match_parent" android:layout_height="?attr/actionBarSize" android:background="@color/green_primary" app:navigationIcon="@drawable/ic_back" app:title="Reportes" app:titleTextColor="@color/white" app:navigationIconTint="@color/white"/>
+        <com.google.android.material.appbar.MaterialToolbar android:id="@+id/toolbar" android:layout_width="match_parent" android:layout_height="?attr/actionBarSize" android:background="@color/green_primary" app:navigationIcon="@drawable/ic_back" app:title="@string/reportes" app:titleTextColor="@color/white" app:navigationIconTint="@color/white"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="12dp"
+            android:paddingTop="12dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/periodo"
+                android:textColor="@color/text_primary"
+                android:textSize="15sp"
+                android:textStyle="bold"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_periodo"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/todo"/>
+        </LinearLayout>
         <androidx.cardview.widget.CardView style="@style/CardStyle" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="12dp">
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Top Plantas Más Vendidas" android:textSize="16sp" android:textStyle="bold" android:textColor="@color/text_primary"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/comparacion_con_periodo_anterior" android:textSize="16sp" android:textStyle="bold" android:textColor="@color/text_primary"/>
+                <TextView android:id="@+id/tv_periodo_actual" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:textSize="13sp" android:textColor="@color/text_secondary"/>
+                <TextView android:id="@+id/tv_comp_ventas" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:textSize="14sp" android:textColor="@color/text_primary"/>
+                <TextView android:id="@+id/tv_comp_gastos" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:textSize="14sp" android:textColor="@color/text_primary"/>
+                <TextView android:id="@+id/tv_comp_neto" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:textSize="14sp" android:textColor="@color/text_primary"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView style="@style/CardStyle" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="12dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/top_plantas_mas_vendidas" android:textSize="16sp" android:textStyle="bold" android:textColor="@color/text_primary"/>
                 <androidx.recyclerview.widget.RecyclerView android:id="@+id/recycler_top_plantas" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:nestedScrollingEnabled="false"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView style="@style/CardStyle" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginHorizontal="12dp">
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="División de Ganancias" android:textSize="16sp" android:textStyle="bold" android:textColor="@color/text_primary"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/division_de_ganancias" android:textSize="16sp" android:textStyle="bold" android:textColor="@color/text_primary"/>
                 <TextView android:id="@+id/tv_div_ana" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:textSize="14sp"/>
                 <TextView android:id="@+id/tv_div_clau" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:textSize="14sp"/>
                 <TextView android:id="@+id/tv_div_wish" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:textSize="14sp"/>
@@ -19,11 +50,31 @@
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView style="@style/CardStyle" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginHorizontal="12dp">
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Estado del Dinero" android:textSize="16sp" android:textStyle="bold" android:textColor="@color/text_primary"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/estado_del_dinero" android:textSize="16sp" android:textStyle="bold" android:textColor="@color/text_primary"/>
                 <TextView android:id="@+id/tv_estado_emprendimiento" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:textSize="14sp"/>
                 <TextView android:id="@+id/tv_estado_retirado" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:textSize="14sp"/>
                 <TextView android:id="@+id/tv_estado_oasis" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:textSize="14sp"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="12dp"
+            android:paddingBottom="16dp">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_exportar_csv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/exportar_csv" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_exportar_pdf"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:text="@string/exportar_pdf" />
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

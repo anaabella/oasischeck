@@ -141,7 +141,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:hint="Nombre planta">
+                    android:hint="@string/nombre_planta">
 
                     <AutoCompleteTextView
                         android:id="@+id/et_nombre_planta"
@@ -156,7 +156,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:hint="Dueña">
+                    android:hint="@string/duena">
 
                     <AutoCompleteTextView
                         android:id="@+id/spinner_duenia"
@@ -171,7 +171,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:hint="Estado del dinero">
+                    android:hint="@string/estado_del_dinero">
 
                     <AutoCompleteTextView
                         android:id="@+id/spinner_estado_dinero"

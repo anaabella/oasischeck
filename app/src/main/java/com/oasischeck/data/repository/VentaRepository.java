@@ -3,6 +3,8 @@ package com.oasischeck.data.repository;
 import android.app.Application;
 
 import com.oasischeck.data.db.AppDatabase;
+import com.oasischeck.data.db.SyncStateDao;
+import com.oasischeck.data.db.SyncTracker;
 import com.oasischeck.data.db.VentaDao;
 import com.oasischeck.data.model.Venta;
 
@@ -12,24 +14,42 @@ import java.util.concurrent.Executors;
 
 public class VentaRepository {
     private final VentaDao ventaDao;
+    private final SyncStateDao syncDao;
     private final ExecutorService executor;
 
     public VentaRepository(Application application) {
         AppDatabase db = AppDatabase.getInstance(application);
         ventaDao = db.ventaDao();
+        syncDao = db.syncStateDao();
         executor = Executors.newFixedThreadPool(2);
     }
 
     public interface Callback<T> { void onResult(T result); }
 
     public void insert(Venta venta, Callback<Long> callback) {
-        executor.execute(() -> { long id = ventaDao.insert(venta); if (callback != null) callback.onResult(id); });
+        executor.execute(() -> {
+            long ts = System.currentTimeMillis();
+            venta.actualizadoEn = ts;
+            long id = ventaDao.insert(venta);
+            SyncTracker.registrar(syncDao, SyncTracker.TIPO_VENTA, id, ts);
+            if (callback != null) callback.onResult(id);
+        });
     }
     public void update(Venta venta, Runnable callback) {
-        executor.execute(() -> { ventaDao.update(venta); if (callback != null) callback.run(); });
+        executor.execute(() -> {
+            long ts = System.currentTimeMillis();
+            venta.actualizadoEn = ts;
+            ventaDao.update(venta);
+            SyncTracker.registrar(syncDao, SyncTracker.TIPO_VENTA, venta.id, ts);
+            if (callback != null) callback.run();
+        });
     }
     public void delete(Venta venta, Runnable callback) {
-        executor.execute(() -> { ventaDao.delete(venta); if (callback != null) callback.run(); });
+        executor.execute(() -> {
+            SyncTracker.marcarEliminado(syncDao, SyncTracker.TIPO_VENTA, venta.id);
+            ventaDao.delete(venta);
+            if (callback != null) callback.run();
+        });
     }
     public void getAll(Callback<List<Venta>> callback) {
         executor.execute(() -> { if (callback != null) callback.onResult(ventaDao.getAll()); });
