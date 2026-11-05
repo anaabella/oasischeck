@@ -1,148 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/background">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="20dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        <com.google.android.material.appbar.MaterialToolbar android:id="@+id/toolbar" android:layout_width="match_parent" android:layout_height="56dp" android:background="@color/background" app:navigationIcon="@drawable/ic_close" app:title="Agregar Planificada" app:titleTextAppearance="@style/Text.Heading" app:titleTextColor="@color/text_primary" app:navigationIconTint="@color/text_secondary" style="@style/Widget.Toolbar.Minimal" />
 
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
 
+            <com.google.android.material.textfield.TextInputLayout style="@style/Input.Outlined" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Fecha">
+                <com.google.android.material.textfield.TextInputEditText android:id="@+id/et_fecha" android:layout_width="match_parent" android:layout_height="wrap_content" android:focusable="false" android:clickable="true"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.cardview.widget.CardView
-            style="@style/CardStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp">
+            <com.google.android.material.textfield.TextInputLayout style="@style/Input.Outlined" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:hint="Total Estimado" app:prefixText="$">
+                <com.google.android.material.textfield.TextInputEditText android:id="@+id/et_total" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+            <com.google.android.material.textfield.TextInputLayout style="@style/Input.Outlined" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:hint="Cliente">
+                <com.google.android.material.textfield.TextInputEditText android:id="@+id/et_cliente" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="textPersonName"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/InputStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/fecha">
+            <com.google.android.material.textfield.TextInputLayout style="@style/Input.Outlined" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:hint="Info">
+                <com.google.android.material.textfield.TextInputEditText android:id="@+id/et_info" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="textMultiLine" android:minLines="1"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_fecha"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:focusable="false"
-                        android:clickable="true" />
+        </LinearLayout>
 
-                </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.button.MaterialButton android:id="@+id/btn_calendario" android:layout_width="match_parent" android:layout_height="56dp" android:layout_marginTop="24dp" android:text="Agregar al calendario" android:textSize="16sp" style="@style/Button.Primary" app:cornerRadius="14dp"/>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/InputStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:hint="@string/cliente">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_cliente"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPersonName" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/InputStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:hint="@string/que_vas_a_vender">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_info"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textMultiLine"
-                        android:minLines="2" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/InputStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:hint="@string/total_estimado"
-                    app:prefixText="$">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_total"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="numberDecimal" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/InputStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:hint="@string/notas_opcional">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_notas"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textMultiLine"
-                        android:minLines="1" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_guardar"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/guardar"
-            android:textSize="16sp"
-            app:backgroundTint="@color/green_primary"
-            app:cornerRadius="12dp" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_calendario"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/agregar_al_calendario"
-            android:textSize="14sp"
-            app:strokeColor="@color/green_primary"
-            android:textColor="@color/green_primary"
-            app:cornerRadius="12dp" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_eliminar"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/eliminar"
-            android:textSize="14sp"
-            android:visibility="gone"
-            app:strokeColor="@android:color/holo_red_dark"
-            android:textColor="@android:color/holo_red_dark"
-            app:cornerRadius="12dp" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/btn_guardar" android:layout_width="match_parent" android:layout_height="56dp" android:layout_marginTop="8dp" android:text="Guardar" android:textSize="16sp" style="@style/Button.Primary" app:cornerRadius="14dp"/>
 
     </LinearLayout>
-
 </ScrollView>

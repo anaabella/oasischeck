@@ -1,18 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="green_primary">#4CAF50</color>
-    <color name="green_primary_dark">#1B5E20</color>
-    <color name="green_primary_light">#66BB6A</color>
-    <color name="green_accent">#81C784</color>
+    <!-- Fondo oscuro -->
+    <color name="background">#0F172A</color>
+    <color name="background_surface">#1E293B</color>
+    
+    <!-- Texto oscuro -->
+    <color name="text_primary">#F8FAFC</color>
+    <color name="text_secondary">#94A3B8</color>
+    <color name="text_inverse">#0F172A</color>
+    
+    <!-- Acentos oscuro -->
+    <color name="green_primary">#34D399</color>
+    <color name="green_primary_dark">#10B981</color>
+    <color name="green_primary_light">#064E3B</color>
+    <color name="red_alert">#F87171</color>
+    <color name="red_alert_light">#450A0A</color>
+    <color name="amber_alert">#FBBF24</color>
+    <color name="amber_alert_light">#451A03</color>
+    
+    <!-- Bordes oscuro -->
+    <color name="border_light">#334155</color>
+    <color name="border_divider">#1E293B</color>
+    
+    <!-- Utilitarios -->
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-    <color name="text_primary">#F5F5F5</color>
-    <color name="text_secondary">#B0B0B0</color>
-    <color name="background">#121212</color>
-    <color name="card_background">#1E1E1E</color>
-    <color name="divider">#333333</color>
-    <color name="toolbar_background">#3F51B5</color>
-    <color name="card_stroke">#2A4033</color>
-    <color name="banner_start">#4A148C</color>
-    <color name="banner_end">#000000</color>
+    <color name="transparent">#00000000</color>
+    
+    <!-- Nav oscuro -->
+    <color name="nav_active">#34D399</color>
+    <color name="nav_inactive">#64748B</color>
+    <color name="nav_background">#0F172A</color>
+    
+    <!-- Status bar oscuro -->
+    <color name="status_bar">#0F172A</color>
+    
+    <!-- Tarjetas oscuro -->
+    <color name="card_background">#1E293B</color>
 </resources>

@@ -10,12 +10,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="20dp">
 
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@color/background"
+            app:navigationIcon="@drawable/ic_close"
+            app:title="Agregar cuenta"
+            app:titleTextAppearance="@style/Text.Heading"
+            app:titleTextColor="@color/text_primary"
+            app:navigationIconTint="@color/text_secondary"
+            style="@style/Widget.Toolbar.Minimal" />
 
-
-        <androidx.cardview.widget.CardView
-            style="@style/CardStyle"
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Card.Minimal.Border"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp">
@@ -27,38 +37,40 @@
                 android:padding="16dp">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/InputStyle"
+                    style="@style/Input.Outlined"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/tipo">
+                    android:hint="Tipo">
 
                     <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:id="@+id/spinner_tipo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="none" />
+
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/InputStyle"
+                    style="@style/Input.Outlined"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:hint="@string/concepto">
+                    android:layout_marginTop="12dp"
+                    android:hint="Concepto">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_concepto"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text" />
+
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/InputStyle"
+                    style="@style/Input.Outlined"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:hint="@string/monto"
+                    android:layout_marginTop="12dp"
+                    android:hint="Monto"
                     app:prefixText="$">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -66,28 +78,30 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="numberDecimal" />
+
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/InputStyle"
+                    style="@style/Input.Outlined"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:hint="@string/cliente_proveedor_opcional">
+                    android:layout_marginTop="12dp"
+                    android:hint="Cliente / proveedor (opcional)">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_persona"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPersonName" />
+
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/InputStyle"
+                    style="@style/Input.Outlined"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:hint="@string/fecha">
+                    android:layout_marginTop="12dp"
+                    android:hint="Fecha">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_fecha"
@@ -95,14 +109,15 @@
                         android:layout_height="wrap_content"
                         android:clickable="true"
                         android:focusable="false" />
+
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/InputStyle"
+                    style="@style/Input.Outlined"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:hint="@string/vencimiento_opcional">
+                    android:layout_marginTop="12dp"
+                    android:hint="Vencimiento (opcional)">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_vencimiento"
@@ -110,23 +125,33 @@
                         android:layout_height="wrap_content"
                         android:clickable="true"
                         android:focusable="false" />
+
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.materialswitch.MaterialSwitch
                     android:id="@+id/switch_pagada"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:textOn=""
                     android:textOff=""
-                    app:showText="false" />
+                    app:showText="false"
+                    style="@style/Switch.Minimal" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/InputStyle"
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:hint="@string/notas_opcional">
+                    android:text="Pagada / cobrada"
+                    android:textSize="15sp"
+                    android:textColor="@color/text_primary"
+                    android:layout_marginTop="8dp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Input.Outlined"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:hint="Notas (opcional)">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_notas"
@@ -134,30 +159,34 @@
                         android:layout_height="wrap_content"
                         android:inputType="textMultiLine"
                         android:minLines="1" />
+
                 </com.google.android.material.textfield.TextInputLayout>
+
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_guardar"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/guardar"
+            android:layout_marginTop="24dp"
+            android:text="Guardar"
             android:textSize="16sp"
-            app:backgroundTint="@color/green_primary"
-            app:cornerRadius="12dp" />
+            style="@style/Button.Primary"
+            app:cornerRadius="14dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_eliminar"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/Button.Outline"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="8dp"
-            android:text="@string/eliminar"
-            android:textColor="@color/red"
-            android:visibility="gone"
-            app:cornerRadius="12dp"
-            app:strokeColor="@color/red" />
+            android:text="Eliminar"
+            android:textColor="@color/red_alert"
+            app:cornerRadius="14dp"
+            app:strokeColor="@color/red_alert"
+            android:visibility="gone" />
+
     </LinearLayout>
+
 </ScrollView>

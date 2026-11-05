@@ -9,9 +9,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="20dp">
 
-
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@color/background"
+            app:title="Cierre de caja"
+            app:titleTextAppearance="@style/Text.Heading"
+            app:titleTextColor="@color/text_primary"
+            app:navigationIcon="@drawable/ic_close"
+            app:navigationIconTint="@color/text_secondary"
+            style="@style/Widget.Toolbar.Minimal" />
 
         <TextView
             android:id="@+id/tv_fecha_cierre"
@@ -23,44 +34,55 @@
             android:textSize="14sp"
             android:textStyle="bold" />
 
-        <androidx.cardview.widget.CardView
-            style="@style/CardStyle"
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Card.Minimal.Border"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            app:cardBackgroundColor="@color/green_primary">
+            android:layout_margin="12dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:padding="20dp"
+                android:gravity="center">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/neto_del_dia"
-                    android:textColor="@color/white"
-                    android:textSize="14sp" />
+                    android:text="Neto del día"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary" />
 
                 <TextView
                     android:id="@+id/tv_neto_dia"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/n_0"
-                    android:textColor="@color/white"
+                    android:text="$0"
                     android:textSize="32sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+                    android:textStyle="bold"
+                    android:textColor="@color/green_primary"
+                    android:layout_marginTop="4dp" />
 
-        <androidx.cardview.widget.CardView
-            style="@style/CardStyle"
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="12dp">
+            android:text="Cuentas pendientes"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp" />
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Card.Minimal.Border"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -69,41 +91,30 @@
                 android:padding="16dp">
 
                 <TextView
-                    android:id="@+id/tv_cierre_ventas"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp" />
+                    android:text="Por cobrar"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_secondary" />
 
                 <TextView
-                    android:id="@+id/tv_cierre_unidades"
+                    android:id="@+id/tv_por_cobrar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:textSize="15sp" />
+                    android:text="$0"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/green_primary" />
 
-                <TextView
-                    android:id="@+id/tv_cierre_gastos"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:id="@+id/tv_cierre_neto"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
-        <androidx.cardview.widget.CardView
-            style="@style/CardStyle"
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Card.Minimal.Border"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="12dp"
-            android:layout_marginTop="4dp">
+            android:layout_marginBottom="8dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -112,37 +123,102 @@
                 android:padding="16dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/cuentas_pendientes"
-                    android:textColor="@color/text_primary"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_cierre_cobrar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:textSize="15sp" />
+                    android:text="Por pagar"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_secondary" />
 
                 <TextView
-                    android:id="@+id/tv_cierre_pagar"
+                    android:id="@+id/tv_por_pagar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:textSize="15sp" />
+                    android:text="$0"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_secondary" />
+
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- IDs adicionales para compatibilidad -->
+        <TextView
+            android:id="@+id/tv_cierre_ventas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ventas: $0 (0 operaciones)"
+            android:textSize="14sp"
+            android:textColor="@color/text_primary"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/tv_cierre_gastos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Gastos: $0"
+            android:textSize="14sp"
+            android:textColor="@color/text_primary"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/tv_cierre_unidades"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Unidades vendidas: 0"
+            android:textSize="14sp"
+            android:textColor="@color/text_primary"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/tv_cierre_neto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Neto: $0"
+            android:textSize="14sp"
+            android:textColor="@color/text_primary"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/tv_cierre_cobrar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Por cobrar pendiente: $0"
+            android:textSize="14sp"
+            android:textColor="@color/text_primary"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/tv_cierre_pagar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Por pagar pendiente: $0"
+            android:textSize="14sp"
+            android:textColor="@color/text_primary"
+            android:layout_marginBottom="24dp" />
+
+        <TextView
+            android:id="@+id/tv_sin_datos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No hay cuentas registradas"
+            android:textColor="@color/text_secondary"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:layout_marginTop="24dp"
+            android:visibility="gone" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_compartir_cierre"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:layout_margin="12dp"
-            android:text="@string/compartir_cierre"
+            android:layout_marginTop="24dp"
+            android:text="Compartir cierre"
             android:textSize="16sp"
-            app:backgroundTint="@color/green_primary"
-            app:cornerRadius="12dp" />
+            style="@style/Button.Primary"
+            app:cornerRadius="14dp" />
+
     </LinearLayout>
+
 </ScrollView>

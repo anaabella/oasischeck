@@ -6,7 +6,17 @@
     android:orientation="vertical"
     android:background="@color/background">
 
-
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/background"
+        app:title="Exportar / Importar"
+        app:titleTextAppearance="@style/Text.Heading"
+        app:titleTextColor="@color/text_primary"
+        app:navigationIcon="@drawable/ic_close"
+        app:navigationIconTint="@color/text_secondary"
+        style="@style/Widget.Toolbar.Minimal" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,20 +27,30 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_exportar"
-            style="@style/Widget.MaterialComponents.Button"
+            style="@style/Button.Primary"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="@string/compartir_backup_json"
+            android:text="Exportar JSON"
+            android:textSize="16sp"
+            android:layout_marginBottom="16dp"
+            app:backgroundTint="@color/green_primary"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_exportar_excel"
+            style="@style/Button.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Exportar a Excel"
             android:textSize="16sp"
             android:layout_marginBottom="16dp"
             app:backgroundTint="@color/green_primary"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_exportar_nube"
-            style="@style/Widget.MaterialComponents.Button"
+            style="@style/Button.Primary"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="@string/guardar_copia_en_la_nube"
+            android:text="Guardar copia en la nube"
             android:textSize="16sp"
             android:layout_marginBottom="16dp"
             app:backgroundTint="@color/green_primary"/>
@@ -40,40 +60,30 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:gravity="center"
-            android:text="@string/elegi_google_drive_onedrive_o_el_almacenamiento"
+            android:text="Selecciona el destino para guardar tu copia de seguridad"
             android:textColor="@color/text_secondary"
             android:textSize="13sp"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_importar"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/Button.Outline"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="@string/restaurar_desde_archivo_o_nube"
+            android:text="Restaurar desde archivo o nube"
             android:textSize="16sp"
             app:strokeColor="@color/green_primary"
             android:textColor="@color/green_primary"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_importar_csv"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/Button.Outline"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="8dp"
-            android:text="@string/importar_csv"
+            android:text="Importar CSV"
             android:textSize="16sp"
             app:strokeColor="@color/green_primary"
             android:textColor="@color/green_primary"/>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_exportar_excel"
-            style="@style/Widget.MaterialComponents.Button"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginTop="16dp"
-            android:text="Exportar a Excel"
-            android:textSize="16sp"
-            app:backgroundTint="@color/green_primary"/>
 
     </LinearLayout>
 

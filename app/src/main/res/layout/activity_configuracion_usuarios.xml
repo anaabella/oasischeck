@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/background">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="20dp">
+
+        <com.google.android.material.appbar.MaterialToolbar android:id="@+id/toolbar" android:layout_width="match_parent" android:layout_height="56dp" android:background="@color/background" app:navigationIcon="@drawable/ic_close" app:title="Usuarios y Sucursales" app:titleTextAppearance="@style/Text.Heading" app:titleTextColor="@color/text_primary" app:navigationIconTint="@color/text_secondary" style="@style/Widget.Toolbar.Minimal" />
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Usuarios" android:textSize="14sp" android:textStyle="bold" android:textColor="@color/text_secondary" android:layout_marginTop="16dp" android:layout_marginBottom="8dp" android:paddingHorizontal="16dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView android:id="@+id/recycler_usuarios" android:layout_width="match_parent" android:layout_height="wrap_content" android:clipToPadding="false" android:paddingBottom="16dp"/>
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Sucursales" android:textSize="14sp" android:textStyle="bold" android:textColor="@color/text_secondary" android:layout_marginTop="24dp" android:layout_marginBottom="8dp" android:paddingHorizontal="16dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView android:id="@+id/recycler_sucursales" android:layout_width="match_parent" android:layout_height="wrap_content" android:clipToPadding="false" android:paddingBottom="80dp"/>
+
+    </LinearLayout>
+</ScrollView>

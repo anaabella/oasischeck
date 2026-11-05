@@ -1,28 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/background">
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="20dp">
 
-        <androidx.cardview.widget.CardView style="@style/CardStyle" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp">
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
-                <com.google.android.material.textfield.TextInputLayout style="@style/InputStyle" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/nombre_de_la_planta">
-                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/et_nombre" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="textPersonName"/>
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout style="@style/InputStyle" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:hint="@string/precio_que_viste" app:prefixText="$">
-                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/et_precio" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal"/>
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout style="@style/InputStyle" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:hint="@string/donde_la_viste">
-                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/et_lugar" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="text"/>
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout style="@style/InputStyle" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:hint="@string/notas_opcional">
-                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/et_notas" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="textMultiLine" android:minLines="2"/>
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout style="@style/InputStyle" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:hint="@string/precio_comprada_si_ya_compraste" app:prefixText="$">
-                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/et_precio_comprada" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal"/>
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.button.MaterialButton android:id="@+id/btn_foto" android:layout_width="match_parent" android:layout_height="48dp" android:layout_marginTop="12dp" android:text="@string/agregar_foto" android:textAllCaps="false" style="@style/Widget.MaterialComponents.Button.OutlinedButton" app:strokeColor="@color/green_primary"/>
-                <ImageView android:id="@+id/iv_foto_preview" android:layout_width="match_parent" android:layout_height="200dp" android:layout_marginTop="8dp" android:scaleType="centerCrop" android:visibility="gone" android:background="@android:color/darker_gray"/>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-        <com.google.android.material.button.MaterialButton android:id="@+id/btn_guardar" android:layout_width="match_parent" android:layout_height="56dp" android:layout_marginTop="16dp" android:text="@string/guardar" app:backgroundTint="@color/green_primary" app:cornerRadius="12dp"/>
+        <com.google.android.material.appbar.MaterialToolbar android:id="@+id/toolbar" android:layout_width="match_parent" android:layout_height="56dp" android:background="@color/background" app:navigationIcon="@drawable/ic_close" app:title="Agregar Wish" app:titleTextAppearance="@style/Text.Heading" app:titleTextColor="@color/text_primary" app:navigationIconTint="@color/text_secondary" style="@style/Widget.Toolbar.Minimal" />
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+
+            <com.google.android.material.textfield.TextInputLayout style="@style/Input.Outlined" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Nombre de la planta">
+                <com.google.android.material.textfield.TextInputEditText android:id="@+id/et_nombre" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout style="@style/Input.Outlined" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:hint="Precio que viste" app:prefixText="$">
+                <com.google.android.material.textfield.TextInputEditText android:id="@+id/et_precio" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout style="@style/Input.Outlined" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:hint="Dónde la vio">
+                <com.google.android.material.textfield.TextInputEditText android:id="@+id/et_lugar" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout style="@style/Input.Outlined" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:hint="Precio comprada (si ya compraste)" app:prefixText="$">
+                <com.google.android.material.textfield.TextInputEditText android:id="@+id/et_precio_comprada" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="numberDecimal"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton android:id="@+id/btn_foto" android:layout_width="match_parent" android:layout_height="48dp" android:layout_marginTop="12dp" android:text="📷 Agregar foto" android:textAllCaps="false" style="@style/Button.Outline" app:strokeColor="@color/green_primary" app:cornerRadius="12dp"/>
+        <ImageView android:id="@+id/iv_foto_preview" android:layout_width="match_parent" android:layout_height="200dp" android:layout_marginTop="8dp" android:scaleType="centerCrop" android:visibility="gone" android:background="@color/background_surface"/>
+
+        <com.google.android.material.button.MaterialButton android:id="@+id/btn_guardar" android:layout_width="match_parent" android:layout_height="56dp" android:layout_marginTop="16dp" android:text="Guardar" android:textSize="16sp" style="@style/Button.Primary" app:cornerRadius="14dp"/>
+
     </LinearLayout>
 </ScrollView>

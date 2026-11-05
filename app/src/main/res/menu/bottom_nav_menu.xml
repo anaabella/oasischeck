@@ -1,8 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/nav_ventas" android:icon="@android:drawable/ic_menu_agenda" android:title="Ventas"/>
-    <item android:id="@+id/nav_pedidos" android:icon="@android:drawable/ic_menu_send" android:title="Pedidos"/>
-    <item android:id="@+id/nav_gastos" android:icon="@android:drawable/ic_menu_sort_by_size" android:title="Gastos"/>
-    <item android:id="@+id/nav_intercambios" android:icon="@android:drawable/ic_menu_compass" android:title="Intercambios"/>
-    <item android:id="@+id/nav_configuracion" android:icon="@android:drawable/ic_menu_preferences" android:title="Configuración"/>
+    <item
+        android:id="@+id/nav_ventas"
+        android:icon="@drawable/ic_home"
+        android:title="Ventas" />
+    <item
+        android:id="@+id/nav_pedidos"
+        android:icon="@drawable/ic_receipt"
+        android:title="Pedidos" />
+    <item
+        android:id="@+id/nav_gastos"
+        android:icon="@drawable/ic_receipt"
+        android:title="Gastos" />
+    <item
+        android:id="@+id/nav_cuentas"
+        android:icon="@drawable/ic_account_balance"
+        android:title="Cuentas" />
+    <item
+        android:id="@+id/nav_intercambios"
+        android:icon="@drawable/ic_settings"
+        android:title="Intercambios" />
+    <item
+        android:id="@+id/nav_configuracion"
+        android:icon="@drawable/ic_settings"
+        android:title="Configuración" />
 </menu>

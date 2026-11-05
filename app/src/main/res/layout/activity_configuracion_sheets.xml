@@ -1,132 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/background">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="20dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        <com.google.android.material.appbar.MaterialToolbar android:id="@+id/toolbar" android:layout_width="match_parent" android:layout_height="56dp" android:background="@color/background" app:navigationIcon="@drawable/ic_close" app:title="Configurar Google Sheets" app:titleTextAppearance="@style/Text.Heading" app:titleTextColor="@color/text_primary" app:navigationIconTint="@color/text_secondary" style="@style/Widget.Toolbar.Minimal" />
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/purple"
-            app:title="Configurar Google Sheets"
-            app:titleTextColor="@color/white"
-            app:navigationIcon="@drawable/ic_back"
-            app:navigationIconTint="@color/white" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Método 1: Google Sheets API (Recomendado)" android:textSize="14sp" android:textStyle="bold" android:textColor="@color/text_secondary" android:layout_marginTop="16dp" android:layout_marginBottom="8dp" android:paddingHorizontal="16dp"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Método 1: Google Sheets API (Recomendado)"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="@color/text_secondary"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
-            android:paddingHorizontal="16dp" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/InputStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:hint="Service Account JSON (pega el contenido del archivo .json)">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_service_account_json"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
-                android:minLines="4" />
-
+        <com.google.android.material.textfield.TextInputLayout style="@style/Input.Outlined" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="8dp" android:hint="Service Account JSON (pega el contenido del archivo .json)">
+            <com.google.android.material.textfield.TextInputEditText android:id="@+id/et_service_account_json" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="textMultiLine" android:minLines="4"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/InputStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:hint="ID de la Hoja de Cálculo (en la URL: /d/ID_AQUI/edit)">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_spreadsheet_id"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
+        <com.google.android.material.textfield.TextInputLayout style="@style/Input.Outlined" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" android:hint="ID de la Hoja de Cálculo (en la URL: /d/ID_AQUI/edit)">
+            <com.google.android.material.textfield.TextInputEditText android:id="@+id/et_spreadsheet_id" android:layout_width="match_parent" android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_guardar_api"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:text="Guardar Configuración API"
-            style="@style/Widget.MaterialComponents.Button"
-            app:backgroundTint="@color/purple"
-            android:textColor="@color/white" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/btn_guardar_api" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="24dp" android:text="Guardar Configuración API" style="@style/Button.Primary" app:backgroundTint="@color/green_primary" android:textColor="@color/white"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Método 2: Webhook (Apps Script)"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="@color/text_secondary"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
-            android:paddingHorizontal="16dp" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Método 2: Webhook (Apps Script)" android:textSize="14sp" android:textStyle="bold" android:textColor="@color/text_secondary" android:layout_marginTop="16dp" android:layout_marginBottom="8dp" android:paddingHorizontal="16dp"/>
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/InputStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:hint="URL del Webhook de Google Apps Script">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_webhook_url"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
+        <com.google.android.material.textfield.TextInputLayout style="@style/Input.Outlined" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" android:hint="URL del Webhook de Google Apps Script">
+            <com.google.android.material.textfield.TextInputEditText android:id="@+id/et_webhook_url" android:layout_width="match_parent" android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_guardar_webhook"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="Guardar Webhook"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            app:strokeColor="@color/green_primary"
-            android:textColor="@color/green_primary" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/btn_guardar_webhook" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="8dp" android:text="Guardar Webhook" style="@style/Button.Outline" app:strokeColor="@color/green_primary" android:textColor="@color/green_primary"/>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_probar_conexion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:text="Probar Conexión"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            app:strokeColor="@color/green_primary"
-            android:textColor="@color/green_primary" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/btn_probar_conexion" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="24dp" android:text="Probar Conexión" style="@style/Button.Outline" app:strokeColor="@color/green_primary" android:textColor="@color/green_primary"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Instrucciones:\n1. Crea una hoja de cálculo en Google Sheets\n2. Crea un Service Account en Google Cloud Console\n3. Comparte la hoja con el email del Service Account\n4. Pega el JSON del Service Account y el ID de la hoja aquí"
-            android:textSize="12sp"
-            android:textColor="@color/text_secondary"
-            android:layout_marginTop="24dp"
-            android:paddingHorizontal="16dp"
-            android:lineSpacingMultiplier="1.3" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Instrucciones:\n1. Crea una hoja de cálculo en Google Sheets\n2. Crea un Service Account en Google Cloud Console\n3. Comparte la hoja con el email del Service Account\n4. Pega el JSON del Service Account y el ID de la hoja aquí" android:textSize="12sp" android:textColor="@color/text_secondary" android:layout_marginTop="24dp" android:paddingHorizontal="16dp" android:lineSpacingMultiplier="1.3"/>
 
     </LinearLayout>
-
 </ScrollView>
