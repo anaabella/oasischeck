@@ -78,18 +78,12 @@ public class MainActivity extends BaseActivity {
                     fragment = new ListaVentasFragment();
                     fab.show();
                     fab.setOnClickListener(v -> startActivity(new Intent(this, AgregarVentaActivity.class)));
-                } else if (id == R.id.nav_pedidos) {
-                    fragment = new PedidosFragment();
-                    fab.show();
-                    fab.setOnClickListener(v -> startActivity(new Intent(this, AgregarPedidoActivity.class)));
                 } else if (id == R.id.nav_gastos) {
                     fragment = new GastosFragment();
                     fab.show();
                     fab.setOnClickListener(v -> startActivity(new Intent(this, AgregarGastoActivity.class)));
-                } else if (id == R.id.nav_intercambios) {
-                    fragment = new IntercambiosFragment();
-                    fab.show();
-                    fab.setOnClickListener(v -> startActivity(new Intent(this, AgregarIntercambioActivity.class)));
+                } else if (id == R.id.nav_cuentas) {
+                    startActivity(new Intent(this, CuentasActivity.class));
                 } else if (id == R.id.nav_configuracion) {
                     startActivity(new Intent(this, ConfiguracionActivity.class));
                 }

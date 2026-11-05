@@ -5,10 +5,6 @@
         android:icon="@drawable/ic_home"
         android:title="Ventas" />
     <item
-        android:id="@+id/nav_pedidos"
-        android:icon="@drawable/ic_receipt"
-        android:title="Pedidos" />
-    <item
         android:id="@+id/nav_gastos"
         android:icon="@drawable/ic_receipt"
         android:title="Gastos" />
@@ -16,10 +12,6 @@
         android:id="@+id/nav_cuentas"
         android:icon="@drawable/ic_account_balance"
         android:title="Cuentas" />
-    <item
-        android:id="@+id/nav_intercambios"
-        android:icon="@drawable/ic_settings"
-        android:title="Intercambios" />
     <item
         android:id="@+id/nav_configuracion"
         android:icon="@drawable/ic_settings"
