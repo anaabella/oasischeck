@@ -142,7 +142,6 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- IDs adicionales para compatibilidad -->
         <TextView
             android:id="@+id/tv_cierre_ventas"
             android:layout_width="match_parent"
@@ -151,15 +150,6 @@
             android:textSize="14sp"
             android:textColor="@color/text_primary"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="4dp" />
-
-        <TextView
-            android:id="@+id/tv_cierre_gastos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Gastos: $0"
-            android:textSize="14sp"
-            android:textColor="@color/text_primary"
             android:layout_marginBottom="4dp" />
 
         <TextView
@@ -178,6 +168,15 @@
             android:text="Neto: $0"
             android:textSize="14sp"
             android:textColor="@color/text_primary"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/tv_cierre_gastos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Gastos: $0"
+            android:textSize="14sp"
+            android:textColor="@color/text_secondary"
             android:layout_marginBottom="4dp" />
 
         <TextView
