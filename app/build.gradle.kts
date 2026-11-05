@@ -2,10 +2,6 @@ plugins {
     id("com.android.application")
 }
 
-if (file("google-services.json").exists()) {
-    apply(plugin = "com.google.gms.google-services")
-}
-
 android {
     namespace = "com.oasischeck"
     compileSdk = 34
@@ -31,6 +27,11 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
     }
 }
 
@@ -58,10 +59,8 @@ dependencies {
     // Activity Result API
     implementation("androidx.activity:activity:1.8.2")
 
-    // Firebase (Auth + Firestore). Solo se activa si google-services.json existe.
-    implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
-    implementation("com.google.firebase:firebase-auth")
-    implementation("com.google.firebase:firebase-firestore")
+    // Apache POI alternative: CSV export (no external library needed)
+    // implementation("org.apache.poi:poi-ooxml:5.2.3")
 
     // Unit tests
     testImplementation("junit:junit:4.13.2")

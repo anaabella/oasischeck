@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="importar_csv">Importar CSV</string>
+    <string name="restaurar_desde_csv">Restaurar desde CSV</string>
+    <string name="importar_exitoso">Datos importados exitosamente</string>
+    <string name="importar_error">Error al importar datos</string>
+    <string name="archivo_no_valido">Archivo CSV no valido</string>
+    <string name="confirmar_importar">Estas seguro de importar datos? Esto sobrescribira los datos existentes.</string>
+</resources>

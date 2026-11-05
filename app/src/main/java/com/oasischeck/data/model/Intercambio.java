@@ -18,6 +18,7 @@ public class Intercambio {
 
     public Intercambio() {}
 
+    @SuppressWarnings("Room")
     public Intercambio(long fecha, String plantaEntregada, String plantaRecibida, String persona, String notas) {
         this.fecha = fecha;
         this.plantaEntregada = plantaEntregada;

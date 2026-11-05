@@ -33,6 +33,9 @@ public interface CuentaDao {
     @Query("SELECT SUM(monto) FROM cuentas WHERE tipo = :tipo AND pagada = 0")
     Double getTotalPendiente(String tipo);
 
+    @Query("SELECT SUM(monto) FROM cuentas WHERE tipo = :tipo AND pagada = 0")
+    Double getTotalPagosSinVenta(String tipo);
+
     @Query("SELECT SUM(monto) FROM cuentas WHERE tipo = :tipo AND pagada = 1")
     Double getTotalPagado(String tipo);
 

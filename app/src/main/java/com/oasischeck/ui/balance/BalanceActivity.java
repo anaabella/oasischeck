@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.appbar.MaterialToolbar;
+
 import com.oasischeck.R;
 import com.oasischeck.data.db.AppDatabase;
 import com.oasischeck.data.db.VentaDao;
@@ -26,8 +26,7 @@ public class BalanceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_balance);
 
-        MaterialToolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setNavigationOnClickListener(v -> finish());
+
 
         ventaDao = AppDatabase.getInstance(this).ventaDao();
         cargarBalance();

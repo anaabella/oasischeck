@@ -1,6 +1,5 @@
 package com.oasischeck.widget;
 
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
@@ -8,53 +7,40 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 
 import com.oasischeck.R;
-import com.oasischeck.data.db.AppDatabase;
 import com.oasischeck.ui.MainActivity;
-
-import java.text.NumberFormat;
-import java.util.Calendar;
-import java.util.Locale;
-import java.util.concurrent.Executors;
+import com.oasischeck.ui.agregar.AgregarVentaActivity;
 
 public class WidgetVentasHoy extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        for (int id : appWidgetIds) {
-            updateWidget(context, appWidgetManager, id);
+        for (int appWidgetId : appWidgetIds) {
+            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_ventas_hoy);
+
+            // Botón para agregar venta rápida desde el widget
+            Intent agregarIntent = new Intent(context, AgregarVentaActivity.class);
+            agregarIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            android.app.PendingIntent pendingAgregar = android.app.PendingIntent.getActivity(
+                    context, 0, agregarIntent,
+                    android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M
+                            ? android.app.PendingIntent.FLAG_IMMUTABLE
+                            : android.app.PendingIntent.FLAG_UPDATE_CURRENT
+            );
+            views.setOnClickPendingIntent(R.id.btn_agregar_venta, pendingAgregar);
+
+            // Tocar el widget abre MainActivity
+            Intent mainIntent = new Intent(context, MainActivity.class);
+            mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            android.app.PendingIntent pendingMain = android.app.PendingIntent.getActivity(
+                    context, 0, mainIntent,
+                    android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M
+                            ? android.app.PendingIntent.FLAG_IMMUTABLE
+                            : android.app.PendingIntent.FLAG_UPDATE_CURRENT
+            );
+            views.setOnClickPendingIntent(R.id.widget_root, pendingMain);
+
+            appWidgetManager.updateAppWidget(appWidgetId, views);
         }
-    }
-
-    static void updateWidget(Context context, AppWidgetManager mgr, int id) {
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_ventas_hoy);
-
-        Intent intent = new Intent(context, MainActivity.class);
-        PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE);
-        views.setOnClickPendingIntent(R.id.widget_root, pi);
-
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, 0);
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MILLISECOND, 0);
-        long inicio = cal.getTimeInMillis();
-        cal.set(Calendar.HOUR_OF_DAY, 23);
-        cal.set(Calendar.MINUTE, 59);
-        cal.set(Calendar.SECOND, 59);
-        long fin = cal.getTimeInMillis();
-
-        final NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("es", "AR"));
-
-        Executors.newSingleThreadExecutor().execute(() -> {
-            AppDatabase db = AppDatabase.getInstance(context);
-            Double total = db.ventaDao().getTotalRango(inicio, fin);
-            Integer unidades = db.ventaDao().getUnidadesRango(inicio, fin);
-            double t = total != null ? total : 0;
-            int u = unidades != null ? unidades : 0;
-
-            views.setTextViewText(R.id.tv_monto, nf.format(t));
-            views.setTextViewText(R.id.tv_detalle, u + " ventas | " + new java.text.SimpleDateFormat("d/M", Locale.getDefault()).format(new java.util.Date()));
-            mgr.updateAppWidget(id, views);
-        });
+        super.onUpdate(context, appWidgetManager, appWidgetIds);
     }
 }

@@ -90,6 +90,65 @@
                     android:textStyle="bold"
                     android:textColor="@color/green_primary" />
 
+                <!-- Nueva sección de foto -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Foto del producto"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_primary" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp">
+
+                        <ImageView
+                            android:id="@+id/iv_foto_preview"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:scaleType="centerCrop"
+                            android:background="@android:color/darker_gray"
+                            android:contentDescription="@string/foto_articulo" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginStart="12dp">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_tomar_foto"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="📷 Cámara"
+                                android:textSize="12sp"
+                                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                                app:strokeColor="@color/green_primary"
+                                android:textColor="@color/green_primary" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_galeria"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="🖼️ Galería"
+                                android:textSize="12sp"
+                                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                                app:strokeColor="@color/green_primary"
+                                android:textColor="@color/green_primary"
+                                android:layout_marginTop="4dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/InputStyle"
                     android:layout_width="match_parent"

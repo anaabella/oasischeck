@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.appbar.MaterialToolbar;
+
 import com.oasischeck.R;
 import com.oasischeck.data.db.AppDatabase;
 import com.oasischeck.data.model.Cuenta;
@@ -38,8 +38,7 @@ public class CierreCajaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cierre_caja);
 
-        MaterialToolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setNavigationOnClickListener(v -> finish());
+
 
         findViewById(R.id.btn_compartir_cierre).setOnClickListener(v -> compartir());
         cargar();

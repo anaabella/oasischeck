@@ -6,15 +6,7 @@
     android:orientation="vertical"
     android:background="@color/background">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/green_primary"
-        app:title="@string/exportar_importar"
-        app:titleTextColor="@color/white"
-        app:navigationIcon="?attr/homeAsUpIndicator"
-        app:navigationIconTint="@color/white"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -61,6 +53,27 @@
             android:textSize="16sp"
             app:strokeColor="@color/green_primary"
             android:textColor="@color/green_primary"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_importar_csv"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/importar_csv"
+            android:textSize="16sp"
+            app:strokeColor="@color/green_primary"
+            android:textColor="@color/green_primary"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_exportar_excel"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="16dp"
+            android:text="Exportar a Excel"
+            android:textSize="16sp"
+            app:backgroundTint="@color/green_primary"/>
 
     </LinearLayout>
 

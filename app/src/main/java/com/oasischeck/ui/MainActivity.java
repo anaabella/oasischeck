@@ -10,7 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
@@ -31,13 +31,9 @@ import com.oasischeck.ui.intercambios.IntercambiosFragment;
 import com.oasischeck.ui.lista.ListaVentasFragment;
 import com.oasischeck.ui.pedidos.AgregarPedidoActivity;
 import com.oasischeck.ui.pedidos.PedidosFragment;
-import com.oasischeck.ui.planificadas.AgregarPlannedVentaActivity;
-import com.oasischeck.ui.planificadas.PlannedVentasFragment;
 import com.oasischeck.ui.rapida.VentaRapidaActivity;
 import com.oasischeck.ui.export.ExportActivity;
 import com.oasischeck.ui.reportes.ReportesActivity;
-import com.oasischeck.ui.wishlist.AgregarWishActivity;
-import com.oasischeck.ui.wishlist.WishlistFragment;
 
 import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.PeriodicWorkRequest;
@@ -47,7 +43,8 @@ import com.oasischeck.worker.AutoBackupWorker;
 import com.oasischeck.worker.RecurringGastoWorker;
 import com.oasischeck.worker.ReminderWorker;
 import com.oasischeck.worker.SyncRetryWorker;
-import com.oasischeck.util.NotificationHelper;
+import com.oasischeck.ui.util.BackupScheduler;
+import com.oasischeck.ui.util.NotificationHelper;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -58,7 +55,7 @@ import java.util.Locale;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private static final String PREFS_SHEETS = "oasischeck_sheets";
     private static final String KEY_WEBHOOK = "sheets_webhook_url";
@@ -66,68 +63,84 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        setSupportActionBar(findViewById(R.id.toolbar));
+        try {
+            setContentView(R.layout.activity_main);
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
-        FloatingActionButton fab = findViewById(R.id.fab_agregar);
+            BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
+            FloatingActionButton fab = findViewById(R.id.fab_agregar);
 
-        if (savedInstanceState == null) loadFragment(new ListaVentasFragment());
+            if (savedInstanceState == null) loadFragment(new ListaVentasFragment());
 
-        bottomNav.setOnItemSelectedListener(item -> {
-            Fragment fragment = null;
-            int id = item.getItemId();
-            if (id == R.id.nav_ventas) {
-                fragment = new ListaVentasFragment();
-                fab.show();
-                fab.setOnClickListener(v -> startActivity(new Intent(this, AgregarVentaActivity.class)));
-            } else if (id == R.id.nav_planificadas) {
-                fragment = new PlannedVentasFragment();
-                fab.show();
-                fab.setOnClickListener(v -> startActivity(new Intent(this, AgregarPlannedVentaActivity.class)));
-            } else if (id == R.id.nav_pedidos) {
-                fragment = new PedidosFragment();
-                fab.show();
-                fab.setOnClickListener(v -> startActivity(new Intent(this, AgregarPedidoActivity.class)));
-            } else if (id == R.id.nav_wishlist) {
-                fragment = new WishlistFragment();
-                fab.show();
-                fab.setOnClickListener(v -> startActivity(new Intent(this, AgregarWishActivity.class)));
-            } else if (id == R.id.nav_gastos) {
-                fragment = new GastosFragment();
-                fab.show();
-                fab.setOnClickListener(v -> startActivity(new Intent(this, AgregarGastoActivity.class)));
+            bottomNav.setOnItemSelectedListener(item -> {
+                Fragment fragment = null;
+                int id = item.getItemId();
+                if (id == R.id.nav_ventas) {
+                    fragment = new ListaVentasFragment();
+                    fab.show();
+                    fab.setOnClickListener(v -> startActivity(new Intent(this, AgregarVentaActivity.class)));
+                } else if (id == R.id.nav_pedidos) {
+                    fragment = new PedidosFragment();
+                    fab.show();
+                    fab.setOnClickListener(v -> startActivity(new Intent(this, AgregarPedidoActivity.class)));
+                } else if (id == R.id.nav_gastos) {
+                    fragment = new GastosFragment();
+                    fab.show();
+                    fab.setOnClickListener(v -> startActivity(new Intent(this, AgregarGastoActivity.class)));
+                } else if (id == R.id.nav_intercambios) {
+                    fragment = new IntercambiosFragment();
+                    fab.show();
+                    fab.setOnClickListener(v -> startActivity(new Intent(this, AgregarIntercambioActivity.class)));
+                } else if (id == R.id.nav_configuracion) {
+                    startActivity(new Intent(this, ConfiguracionActivity.class));
+                }
+                if (fragment != null) loadFragment(fragment);
+                return true;
+            });
+
+            fab.setOnClickListener(v -> startActivity(new Intent(this, AgregarVentaActivity.class)));
+
+            // Inicializar WorkManager de forma segura
+            try {
+                WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+                    "recurring_gastos", ExistingPeriodicWorkPolicy.KEEP,
+                    new PeriodicWorkRequest.Builder(RecurringGastoWorker.class, 1, TimeUnit.DAYS).build()
+                );
+                WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+                    "retry_sync", ExistingPeriodicWorkPolicy.KEEP,
+                    new PeriodicWorkRequest.Builder(SyncRetryWorker.class, 30, TimeUnit.MINUTES).build()
+                );
+                WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+                    "auto_backup", ExistingPeriodicWorkPolicy.KEEP,
+                    new PeriodicWorkRequest.Builder(AutoBackupWorker.class, 1, TimeUnit.DAYS).build()
+                );
+                WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+                    "recordatorios", ExistingPeriodicWorkPolicy.KEEP,
+                    new PeriodicWorkRequest.Builder(ReminderWorker.class, 1, TimeUnit.DAYS).build()
+                );
+            } catch (Exception e) {
+                android.util.Log.e("OasisCheck", "Error inicializando WorkManager", e);
             }
-            if (fragment != null) loadFragment(fragment);
-            return true;
-        });
 
-        fab.setOnClickListener(v -> startActivity(new Intent(this, AgregarVentaActivity.class)));
+            try {
+                NotificationHelper.crearCanal(this);
+            } catch (Exception e) {
+                android.util.Log.e("OasisCheck", "Error inicializando notificaciones", e);
+            }
 
-        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
-            "recurring_gastos", ExistingPeriodicWorkPolicy.KEEP,
-            new PeriodicWorkRequest.Builder(RecurringGastoWorker.class, 1, TimeUnit.DAYS).build()
-        );
+            solicitarPermisoNotificaciones();
 
-        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
-            "retry_sync", ExistingPeriodicWorkPolicy.KEEP,
-            new PeriodicWorkRequest.Builder(SyncRetryWorker.class, 30, TimeUnit.MINUTES).build()
-        );
+            // Programar backup nocturno de forma segura
+            try {
+                BackupScheduler.programarBackupNocturno(this);
+            } catch (Exception e) {
+                android.util.Log.e("OasisCheck", "Error programando backup nocturno", e);
+            }
 
-        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
-            "auto_backup", ExistingPeriodicWorkPolicy.KEEP,
-            new PeriodicWorkRequest.Builder(AutoBackupWorker.class, 1, TimeUnit.DAYS).build()
-        );
-
-        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
-            "recordatorios", ExistingPeriodicWorkPolicy.KEEP,
-            new PeriodicWorkRequest.Builder(ReminderWorker.class, 1, TimeUnit.DAYS).build()
-        );
-
-        NotificationHelper.crearCanal(this);
-        solicitarPermisoNotificaciones();
-
-        actualizarEstadoSync();
+            actualizarEstadoSync();
+        } catch (Exception e) {
+            android.util.Log.e("OasisCheck", "Error en onCreate de MainActivity", e);
+            Toast.makeText(this, "Error inicializando la app", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void solicitarPermisoNotificaciones() {
@@ -149,10 +162,19 @@ public class MainActivity extends AppCompatActivity {
         if (tv == null) return;
         Executors.newSingleThreadExecutor().execute(() -> {
             int pendientes = AppDatabase.getInstance(this).ventaDao().getNoSincronizadas().size();
+            boolean sheetsConfigurado = getSharedPreferences("oasischeck_sheets", MODE_PRIVATE)
+                    .getString("sheets_webhook_url", "") != null
+                    && !getSharedPreferences("oasischeck_sheets", MODE_PRIVATE)
+                    .getString("sheets_webhook_url", "").isEmpty();
             runOnUiThread(() -> {
                 if (pendientes > 0) {
-                    tv.setText(pendientes + " venta(s) pendientes de sincronizar");
+                    tv.setText(pendientes + " venta(s) pendiente(s) de sincronizar");
                     tv.setVisibility(android.view.View.VISIBLE);
+                    tv.setBackgroundResource(android.R.color.holo_orange_light);
+                } else if (sheetsConfigurado) {
+                    tv.setText("✓ Sincronizado con Google Sheets");
+                    tv.setVisibility(android.view.View.VISIBLE);
+                    tv.setBackgroundResource(android.R.color.holo_green_light);
                 } else {
                     tv.setVisibility(android.view.View.GONE);
                 }
@@ -195,6 +217,9 @@ public class MainActivity extends AppCompatActivity {
             return true;
         } else if (id == R.id.action_reportes) {
             startActivity(new Intent(this, ReportesActivity.class));
+            return true;
+        } else if (id == R.id.action_configuracion) {
+            startActivity(new Intent(this, ConfiguracionActivity.class));
             return true;
         } else if (id == R.id.action_share) {
             compartirResumen();

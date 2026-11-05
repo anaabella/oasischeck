@@ -11,13 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/green_primary"
-            app:title="@string/balance"
-            app:titleTextColor="@color/white" />
+
 
         <androidx.cardview.widget.CardView
             style="@style/CardStyle"

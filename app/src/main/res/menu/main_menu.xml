@@ -41,4 +41,8 @@
         android:id="@+id/action_export_import"
         android:title="Exportar/Importar"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_configuracion"
+        android:title="Configuración"
+        app:showAsAction="never" />
 </menu>

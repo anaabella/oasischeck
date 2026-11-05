@@ -30,9 +30,14 @@ import java.util.Locale;
 
 public class ListaVentasFragment extends Fragment {
 
+    private static final int PAGE_SIZE = 20;
+
     private VentaRepository repository;
     private VentaAdapter adapter;
     private List<Venta> todasLasVentas = new ArrayList<>();
+    private List<Venta> ventasPaginadas = new ArrayList<>();
+    private int offsetActual = 0;
+    private boolean hayMasDatos = true;
     private TextView tvTotalFiltrado, tvSinDatos;
     private ProgressBar progressBar;
     private MaterialButton btnFiltrarFecha;
@@ -69,6 +74,17 @@ public class ListaVentasFragment extends Fragment {
         });
         recycler.setAdapter(adapter);
 
+        // Paginación: cargar más al hacer scroll
+        recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (!recyclerView.canScrollVertically(1) && hayMasDatos && !progressBar.isShown()) {
+                    cargarMasVentas();
+                }
+            }
+        });
+
         btnFiltrarFecha.setOnClickListener(v -> mostrarFiltroFecha());
         btnFiltrarLugar.setOnClickListener(v -> mostrarFiltroLugar());
 
@@ -79,7 +95,12 @@ public class ListaVentasFragment extends Fragment {
                 repository.search(newText, ventas -> {
                     if (getActivity() != null) {
                         getActivity().runOnUiThread(() -> {
-                            List<DisplayItem> items = agruparPorDiaYMonto(ventas);
+                            todasLasVentas = ventas;
+                            offsetActual = 0;
+                            hayMasDatos = true;
+                            ventasPaginadas.clear();
+                            cargarMasVentas();
+                            List<DisplayItem> items = agruparPorDiaYMonto(ventasPaginadas);
                             adapter.setItems(items);
                             tvSinDatos.setVisibility(ventas.isEmpty() ? View.VISIBLE : View.GONE);
                         });
@@ -100,12 +121,41 @@ public class ListaVentasFragment extends Fragment {
 
     private void cargarVentas() {
         progressBar.setVisibility(View.VISIBLE);
-        repository.getAll(ventas -> {
+        repository.getCount(count -> {
+            if (getActivity() != null) {
+                getActivity().runOnUiThread(() -> {
+                    hayMasDatos = count > PAGE_SIZE;
+                });
+            }
+        });
+        repository.getAllPaginated(PAGE_SIZE, 0, ventas -> {
             if (getActivity() != null) {
                 getActivity().runOnUiThread(() -> {
                     progressBar.setVisibility(View.GONE);
                     todasLasVentas = ventas;
+                    offsetActual = ventas.size();
+                    hayMasDatos = ventas.size() >= PAGE_SIZE;
+                    ventasPaginadas = new ArrayList<>(ventas);
                     aplicarFiltros();
+                });
+            }
+        });
+    }
+
+    private void cargarMasVentas() {
+        progressBar.setVisibility(View.VISIBLE);
+        repository.getAllPaginated(PAGE_SIZE, offsetActual, ventasMas -> {
+            if (getActivity() != null) {
+                getActivity().runOnUiThread(() -> {
+                    progressBar.setVisibility(View.GONE);
+                    if (ventasMas.isEmpty()) {
+                        hayMasDatos = false;
+                    } else {
+                        ventasPaginadas.addAll(ventasMas);
+                        offsetActual += ventasMas.size();
+                        hayMasDatos = ventasMas.size() >= PAGE_SIZE;
+                        aplicarFiltros();
+                    }
                 });
             }
         });
@@ -114,7 +164,7 @@ public class ListaVentasFragment extends Fragment {
     private void aplicarFiltros() {
         List<Venta> filtradas = new ArrayList<>();
         double totalFiltrado = 0;
-        for (Venta v : todasLasVentas) {
+        for (Venta v : ventasPaginadas) {
             boolean pasaLugar = filtroLugar == null || v.lugar.equals(filtroLugar);
             boolean pasaFecha = filtroFechaInicio == -1 || (v.fecha >= filtroFechaInicio && v.fecha <= filtroFechaFin);
             if (pasaLugar && pasaFecha) {
@@ -185,7 +235,7 @@ public class ListaVentasFragment extends Fragment {
                 .setItems(opciones, (d, which) -> {
                     Calendar cal = Calendar.getInstance();
                     switch (which) {
-                        case 0: // Hoy
+                        case 0:
                             cal.set(Calendar.HOUR_OF_DAY, 0);
                             cal.set(Calendar.MINUTE, 0);
                             cal.set(Calendar.SECOND, 0);
@@ -197,7 +247,7 @@ public class ListaVentasFragment extends Fragment {
                             filtroFechaFin = cal.getTimeInMillis();
                             btnFiltrarFecha.setText("Hoy");
                             break;
-                        case 1: // Esta semana (lunes a hoy)
+                        case 1:
                             cal.set(Calendar.DAY_OF_WEEK, cal.getFirstDayOfWeek());
                             cal.set(Calendar.HOUR_OF_DAY, 0);
                             cal.set(Calendar.MINUTE, 0);
@@ -211,7 +261,7 @@ public class ListaVentasFragment extends Fragment {
                             filtroFechaFin = ahora.getTimeInMillis();
                             btnFiltrarFecha.setText("Semana");
                             break;
-                        case 2: // Este mes
+                        case 2:
                             cal.set(Calendar.DAY_OF_MONTH, 1);
                             cal.set(Calendar.HOUR_OF_DAY, 0);
                             cal.set(Calendar.MINUTE, 0);
@@ -225,10 +275,10 @@ public class ListaVentasFragment extends Fragment {
                             filtroFechaFin = ahoraMes.getTimeInMillis();
                             btnFiltrarFecha.setText("Mes");
                             break;
-                        case 3: // Rango personalizado
+                        case 3:
                             mostrarRangoPersonalizado();
                             return;
-                        case 4: // Todas
+                        case 4:
                             filtroFechaInicio = -1;
                             filtroFechaFin = -1;
                             btnFiltrarFecha.setText("Todas");

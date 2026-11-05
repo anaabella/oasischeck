@@ -35,6 +35,12 @@ public class VentaRepository {
             if (callback != null) callback.onResult(id);
         });
     }
+
+    public void getByUsuarioYSucursal(long usuarioId, long sucursalId, Callback<List<Venta>> callback) {
+        executor.execute(() -> {
+            if (callback != null) callback.onResult(ventaDao.getByUsuarioYSucursal(usuarioId, sucursalId));
+        });
+    }
     public void update(Venta venta, Runnable callback) {
         executor.execute(() -> {
             long ts = System.currentTimeMillis();
@@ -53,6 +59,12 @@ public class VentaRepository {
     }
     public void getAll(Callback<List<Venta>> callback) {
         executor.execute(() -> { if (callback != null) callback.onResult(ventaDao.getAll()); });
+    }
+    public void getAllPaginated(int limit, int offset, Callback<List<Venta>> callback) {
+        executor.execute(() -> { if (callback != null) callback.onResult(ventaDao.getAllPaginated(limit, offset)); });
+    }
+    public void getCount(Callback<Integer> callback) {
+        executor.execute(() -> { if (callback != null) callback.onResult(ventaDao.getCount()); });
     }
     public void getById(long id, Callback<Venta> callback) {
         executor.execute(() -> { if (callback != null) callback.onResult(ventaDao.getById(id)); });
@@ -87,5 +99,9 @@ public class VentaRepository {
     public void getTotalPorEstadoDinero(String estado, Callback<Double> callback) {
         executor.execute(() -> { Double t = ventaDao.getTotalPorEstadoDinero(estado); if (callback != null) callback.onResult(t != null ? t : 0); });
     }
+    public List<Venta> getAllSync() {
+        return ventaDao.getAll();
+    }
+
     public VentaDao getVentaDao() { return ventaDao; }
 }

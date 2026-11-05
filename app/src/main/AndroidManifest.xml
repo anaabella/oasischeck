@@ -3,6 +3,15 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
     <application android:allowBackup="true" android:icon="@mipmap/ic_launcher" android:label="@string/app_name" android:roundIcon="@mipmap/ic_launcher_round" android:supportsRtl="true" android:theme="@style/Theme.OasisCheck" tools:targetApi="31">
         <activity android:name=".ui.MainActivity" android:exported="true">
             <intent-filter>
@@ -11,6 +20,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.agregar.AgregarVentaActivity" />
+        <activity android:name=".ui.ConfiguracionActivity" />
+        <activity android:name=".ui.configuracion.ConfiguracionSheetsActivity" />
+        <activity android:name=".ui.configuracion.ConfiguracionCategoriasActivity" />
+        <activity android:name=".ui.configuracion.ConfiguracionLugaresActivity" />
+        <activity android:name=".ui.configuracion.ConfiguracionUsuariosActivity" />
         <activity android:name=".ui.editar.EditarVentaActivity" />
         <activity android:name=".ui.balance.BalanceActivity" />
         <activity android:name=".ui.dashboard.DashboardActivity" />
@@ -51,5 +65,6 @@
             </intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_wishlist_info"/>
         </receiver>
+        <service android:name=".sheets.GoogleSheetsService" android:exported="false" />
     </application>
 </manifest>

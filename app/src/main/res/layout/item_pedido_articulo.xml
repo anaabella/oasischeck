@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/bg_articulo"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/InputStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/que_pidio">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_articulo_descripcion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences|textMultiLine"
+                android:maxLines="3" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_foto_articulo"
+            style="@style/Widget.Oasis.Button.Outlined"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="6dp"
+            android:contentDescription="@string/foto_articulo"
+            android:insetLeft="0dp"
+            android:insetRight="0dp"
+            android:padding="0dp"
+            android:text="📷"
+            android:textSize="18sp"
+            app:cornerRadius="14dp" />
+
+        <ImageButton
+            android:id="@+id/btn_quitar_articulo"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="2dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/quitar_articulo"
+            android:padding="8dp"
+            android:src="@drawable/ic_close"
+            app:tint="@color/nav_inactive" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_articulo_preview"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_articulo"
+        android:contentDescription="@string/foto_articulo"
+        android:scaleType="centerCrop"
+        android:visibility="gone" />
+
+</LinearLayout>

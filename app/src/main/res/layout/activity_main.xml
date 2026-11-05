@@ -57,9 +57,9 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_gravity="bottom"
-        android:background="@color/card_background"
+        android:background="@color/bottom_nav_background"
         app:menu="@menu/bottom_nav_menu"
-        app:itemIconTint="@color/green_primary"
-        app:itemTextColor="@color/green_primary" />
+        app:itemIconTint="@color/bottom_nav_tint"
+        app:itemTextColor="@color/bottom_nav_tint" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

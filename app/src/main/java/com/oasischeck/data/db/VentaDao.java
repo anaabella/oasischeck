@@ -24,11 +24,26 @@ public interface VentaDao {
     @Query("SELECT * FROM ventas ORDER BY fecha DESC, id DESC")
     List<Venta> getAll();
 
+    @Query("SELECT * FROM ventas LIMIT :limit OFFSET :offset")
+    List<Venta> getAllPaginated(int limit, int offset);
+
+    @Query("SELECT COUNT(*) FROM ventas")
+    int getCount();
+
     @Query("SELECT * FROM ventas WHERE id = :id")
     Venta getById(long id);
 
     @Query("SELECT * FROM ventas WHERE sincronizado = 0")
     List<Venta> getNoSincronizadas();
+
+    @Query("SELECT * FROM ventas WHERE usuarioId = :usuarioId ORDER BY fecha DESC, id DESC")
+    List<Venta> getByUsuario(long usuarioId);
+
+    @Query("SELECT * FROM ventas WHERE sucursalId = :sucursalId ORDER BY fecha DESC, id DESC")
+    List<Venta> getBySucursal(long sucursalId);
+
+    @Query("SELECT * FROM ventas WHERE usuarioId = :usuarioId AND sucursalId = :sucursalId ORDER BY fecha DESC, id DESC")
+    List<Venta> getByUsuarioYSucursal(long usuarioId, long sucursalId);
 
     @Query("SELECT * FROM ventas WHERE fecha BETWEEN :fechaInicio AND :fechaFin ORDER BY fecha DESC")
     List<Venta> getByFechaRango(long fechaInicio, long fechaFin);

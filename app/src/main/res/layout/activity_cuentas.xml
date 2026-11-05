@@ -11,15 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/green_primary"
-            app:navigationIcon="@drawable/ic_back"
-            app:navigationIconTint="@color/white"
-            app:title="@string/cuentas_por_cobrar_pagar"
-            app:titleTextColor="@color/white" />
+
 
         <androidx.cardview.widget.CardView
             style="@style/CardStyle"

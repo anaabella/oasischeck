@@ -12,15 +12,7 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/green_primary"
-            app:navigationIcon="@drawable/ic_back"
-            app:navigationIconTint="@color/white"
-            app:title="@string/agregar_cuenta"
-            app:titleTextColor="@color/white" />
+
 
         <androidx.cardview.widget.CardView
             style="@style/CardStyle"
@@ -125,7 +117,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="@string/pagada_cobrada" />
+                    android:textOn=""
+                    android:textOff=""
+                    app:showText="false" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/InputStyle"

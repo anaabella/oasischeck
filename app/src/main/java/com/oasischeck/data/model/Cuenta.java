@@ -33,4 +33,8 @@ public class Cuenta {
     public boolean estaVencida() {
         return !pagada && vencimiento > 0 && vencimiento < System.currentTimeMillis();
     }
+
+    public double getSaldoPendiente() {
+        return pagada ? 0 : monto;
+    }
 }

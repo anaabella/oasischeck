@@ -12,6 +12,9 @@ import androidx.core.content.FileProvider;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.oasischeck.R;
+import com.oasischeck.data.model.Venta;
+import com.oasischeck.data.repository.VentaRepository;
+import com.oasischeck.ui.util.ExcelExporter;
 import com.oasischeck.util.BackupManager;
 
 import org.json.JSONObject;
@@ -22,15 +25,19 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.Executors;
 
 public class ExportActivity extends AppCompatActivity {
 
+    private VentaRepository repository;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_export);
+        repository = new VentaRepository(getApplication());
 
         MaterialToolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationOnClickListener(v -> finish());
@@ -42,6 +49,36 @@ public class ExportActivity extends AppCompatActivity {
         btnExportar.setOnClickListener(v -> exportarJSON());
         btnExportarNube.setOnClickListener(v -> exportarNube());
         btnImportar.setOnClickListener(v -> importarJSON());
+        MaterialButton btnImportarCSV = findViewById(R.id.btn_importar_csv);
+        btnImportarCSV.setOnClickListener(v -> importarCSV());
+        MaterialButton btnExportarExcel = findViewById(R.id.btn_exportar_excel);
+        btnExportarExcel.setOnClickListener(v -> exportarExcel());
+    }
+
+    private void exportarExcel() {
+        Executors.newSingleThreadExecutor().execute(() -> {
+            try {
+                List<Venta> ventas = repository.getAllSync();
+                String fecha = new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(new Date());
+                File file = ExcelExporter.exportarVentasAExcel(this, ventas, "oasischeck_ventas_" + fecha);
+
+                Uri uri = FileProvider.getUriForFile(this,
+                        getPackageName() + ".fileprovider", file);
+
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+                shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Reporte de Ventas OasisCheck");
+                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                startActivity(Intent.createChooser(shareIntent, "Compartir Excel"));
+
+                runOnUiThread(() ->
+                        Toast.makeText(this, "Excel exportado correctamente", Toast.LENGTH_SHORT).show());
+            } catch (Exception e) {
+                runOnUiThread(() ->
+                        Toast.makeText(this, "Error al exportar Excel: " + e.getMessage(), Toast.LENGTH_LONG).show());
+            }
+        });
     }
 
     private void exportarNube() {
@@ -101,6 +138,13 @@ public class ExportActivity extends AppCompatActivity {
         startActivityForResult(intent, 1001);
     }
 
+    private void importarCSV() {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("text/csv");
+        startActivityForResult(intent, 1003);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -108,14 +152,62 @@ public class ExportActivity extends AppCompatActivity {
             Uri uri = data.getData();
             new AlertDialog.Builder(this)
                     .setTitle("Importar backup")
-                    .setMessage("Esto reemplazará TODOS los datos actuales por los del archivo. " +
-                            "Antes de importar se guardará un backup de seguridad. ¿Continuar?")
+                    .setMessage("Esto reemplazara TODOS los datos actuales por los del archivo. " +
+                            "Antes de importar se guardara un backup de seguridad. Continuar?")
                     .setPositiveButton("Importar", (d, w) -> procesarImportacion(uri))
                     .setNegativeButton("Cancelar", null)
                     .show();
         } else if (requestCode == 1002 && resultCode == RESULT_OK && data != null && data.getData() != null) {
             subirArchivo(data.getData());
+        } else if (requestCode == 1003 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri uri = data.getData();
+            new AlertDialog.Builder(this)
+                    .setTitle("Importar CSV")
+                    .setMessage("Esto importara ventas desde un archivo CSV. Continuar?")
+                    .setPositiveButton("Importar", (d, w) -> procesarImportacionCSV(uri))
+                    .setNegativeButton("Cancelar", null)
+                    .show();
         }
+    }
+
+    private void procesarImportacionCSV(Uri uri) {
+        Executors.newSingleThreadExecutor().execute(() -> {
+            try {
+                final int[] importadas = {0};
+                try (BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(getContentResolver().openInputStream(uri)))) {
+                    String line;
+                    boolean primeraLinea = true;
+                    while ((line = reader.readLine()) != null) {
+                        if (primeraLinea) {
+                            primeraLinea = false;
+                            continue;
+                        }
+                        String[] campos = line.split(",", -1);
+                        if (campos.length >= 6) {
+                            try {
+                                long fecha = Long.parseLong(campos[0]);
+                                String detalle = campos[2];
+                                int cantidad = Integer.parseInt(campos[3]);
+                                double monto = Double.parseDouble(campos[4]);
+                                Venta venta = new Venta(fecha, cantidad, monto, detalle, "CSV Importado", campos[5]);
+                                repository.insert(venta, id -> {
+                                    importadas[0]++;
+                                });
+                            } catch (NumberFormatException e) {
+                                // Saltar linea mal formada
+                            }
+                        }
+                    }
+                    final int totalImportadas = importadas[0];
+                    runOnUiThread(() ->
+                            Toast.makeText(this, "Importadas " + totalImportadas + " ventas desde CSV", Toast.LENGTH_LONG).show());
+                }
+            } catch (Exception e) {
+                runOnUiThread(() ->
+                        Toast.makeText(this, "Error al importar CSV: " + e.getMessage(), Toast.LENGTH_LONG).show());
+            }
+        });
     }
 
     private void procesarImportacion(Uri uri) {

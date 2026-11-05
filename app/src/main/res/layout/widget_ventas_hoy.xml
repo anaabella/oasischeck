@@ -1,6 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/widget_root" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center" android:padding="12dp" android:background="#2E7D32">
-    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/oasischeck" android:textSize="12sp" android:textColor="#FFFFFF"/>
-    <TextView android:id="@+id/tv_monto" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/n_0" android:textSize="22sp" android:textStyle="bold" android:textColor="#FFFFFF"/>
-    <TextView android:id="@+id/tv_detalle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/n_0_ventas" android:textSize="11sp" android:textColor="#A5D6A7"/>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="12dp"
+    android:background="@color/toolbar_background">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="📊 Ventas Hoy"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/tv_ventas_hoy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$0"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/tv_ventas_mes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/balance_ventas_0"
+        android:textSize="10sp"
+        android:textColor="@color/green_primary_light" />
+
+    <Button
+        android:id="@+id/btn_agregar_venta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="+ Agregar"
+        android:textSize="10sp"
+        android:backgroundTint="@color/green_primary"
+        android:textColor="#FFFFFF" />
+
 </LinearLayout>

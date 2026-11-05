@@ -1,12 +1,21 @@
 package com.oasischeck.ui.agregar;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.appbar.MaterialToolbar;
@@ -16,20 +25,66 @@ import com.oasischeck.R;
 import com.oasischeck.data.model.Venta;
 import com.oasischeck.data.repository.VentaRepository;
 import com.oasischeck.sheets.GoogleSheetsService;
+import com.oasischeck.ui.util.FotoStorage;
+import com.oasischeck.ui.util.PermissionHelper;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class AgregarVentaActivity extends AppCompatActivity {
+public class AgregarVentaActivity extends AppCompatActivity implements PermissionHelper.PermissionCallback {
 
     private TextInputEditText etFecha, etCantidad, etPrecio, etInfo;
     private AutoCompleteTextView etNombrePlanta;
     private AutoCompleteTextView spinnerLugar, spinnerCategoria, spinnerDuenia;
     private TextView tvTotal;
+    private ImageView ivFotoPreview;
     private VentaRepository repository;
     private long fechaSeleccionada = System.currentTimeMillis();
     private final NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(new Locale("es", "AR"));
+    private String rutaFotoSeleccionada = null;
+
+    // Activity Result Launchers para cámara y galería
+    private final ActivityResultLauncher<Intent> takePhotoLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                    Uri photoUri = result.getData().getData();
+                    if (photoUri != null) {
+                        try {
+                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), photoUri);
+                            ivFotoPreview.setImageBitmap(bitmap);
+                            rutaFotoSeleccionada = FotoStorage.guardarImagen(this, bitmap, "venta_" + System.currentTimeMillis());
+                            Toast.makeText(this, "Foto guardada", Toast.LENGTH_SHORT).show();
+                        } catch (IOException e) {
+                            Toast.makeText(this, "Error al cargar foto", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            }
+    );
+
+    private final ActivityResultLauncher<Intent> pickImageLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                    Uri imageUri = result.getData().getData();
+                    if (imageUri != null) {
+                        try {
+                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                            ivFotoPreview.setImageBitmap(bitmap);
+                            rutaFotoSeleccionada = FotoStorage.guardarImagen(this, bitmap, "venta_" + System.currentTimeMillis());
+                            Toast.makeText(this, "Foto guardada", Toast.LENGTH_SHORT).show();
+                        } catch (IOException e) {
+                            Toast.makeText(this, "Error al cargar foto", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            }
+    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +105,10 @@ public class AgregarVentaActivity extends AppCompatActivity {
         spinnerCategoria = findViewById(R.id.spinner_categoria);
         spinnerDuenia = findViewById(R.id.spinner_duenia);
         tvTotal = findViewById(R.id.tv_total);
+        ivFotoPreview = findViewById(R.id.iv_foto_preview);
         MaterialButton btnGuardar = findViewById(R.id.btn_guardar);
+        MaterialButton btnTomarFoto = findViewById(R.id.btn_tomar_foto);
+        MaterialButton btnGaleria = findViewById(R.id.btn_galeria);
 
         setupSpinners();
         setupDatePicker();
@@ -75,6 +133,52 @@ public class AgregarVentaActivity extends AppCompatActivity {
         }
 
         btnGuardar.setOnClickListener(v -> guardarVenta(getIntent().getLongExtra("planned_id", -1)));
+
+        btnTomarFoto.setOnClickListener(v -> {
+            if (PermissionHelper.hasCameraPermission(this)) {
+                abrirCamara();
+            } else {
+                PermissionHelper.requestCameraAndStorage(this, this);
+            }
+        });
+
+        btnGaleria.setOnClickListener(v -> {
+            if (PermissionHelper.hasCameraPermission(this)) {
+                abrirGaleria();
+            } else {
+                PermissionHelper.requestCameraAndStorage(this, this);
+            }
+        });
+    }
+
+    private void abrirCamara() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        File photoFile = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "venta_" + System.currentTimeMillis() + ".jpg");
+        android.net.Uri photoUri = androidx.core.content.FileProvider.getUriForFile(this, getPackageName() + ".fileprovider", photoFile);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+        takePhotoLauncher.launch(intent);
+    }
+
+    private void abrirGaleria() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        pickImageLauncher.launch(intent);
+    }
+
+    @Override
+    public void onGranted() {
+        // Permisos concedidos, permitir al usuario volver a intentar
+        Toast.makeText(this, "Permisos concedidos. Intente de nuevo tomar o seleccionar foto", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onDenied() {
+        Toast.makeText(this, "Permisos denegados. No se podrá agregar fotos", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionHelper.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
     private void setupSpinners() {
@@ -144,6 +248,7 @@ public class AgregarVentaActivity extends AppCompatActivity {
         venta.nombrePlanta = etNombrePlanta.getText() != null ? etNombrePlanta.getText().toString().trim() : "";
         venta.duenia = spinnerDuenia.getText().toString();
         venta.estadoDinero = Venta.ESTADO_EMPRENDIMIENTO;
+        venta.rutaFoto = rutaFotoSeleccionada;
 
         repository.insert(venta, id -> {
             venta.id = id;

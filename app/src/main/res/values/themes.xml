@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.OasisCheck" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <item name="colorPrimary">@color/green_primary</item>
-        <item name="colorPrimaryDark">@color/green_primary_dark</item>
-        <item name="colorAccent">@color/green_accent</item>
-        <item name="colorSecondary">@color/green_accent</item>
+    <style name="Theme.OasisCheck" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/purple</item>
+        <item name="colorPrimaryDark">#6A1B9A</item>
+        <item name="colorAccent">#FF4081</item>
+        <item name="colorSecondary">#FF4081</item>
         <item name="colorOnSurface">@color/text_primary</item>
-        <item name="android:statusBarColor">@color/green_primary_dark</item>
+        <item name="android:statusBarColor">#6A1B9A</item>
     </style>
 
      <style name="Theme.OasisCheck.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
@@ -29,5 +29,19 @@
         <item name="boxCornerRadiusTopEnd">8dp</item>
         <item name="boxCornerRadiusBottomStart">8dp</item>
         <item name="boxCornerRadiusBottomEnd">8dp</item>
+    </style>
+
+    <style name="Widget.Oasis.Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="cornerRadius">14dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="Widget.Oasis.Button" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">14dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:textSize">15sp</item>
     </style>
 </resources>
