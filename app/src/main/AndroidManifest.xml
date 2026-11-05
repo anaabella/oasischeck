@@ -25,6 +25,7 @@
         <activity android:name=".ui.configuracion.ConfiguracionCategoriasActivity" />
         <activity android:name=".ui.configuracion.ConfiguracionLugaresActivity" />
         <activity android:name=".ui.configuracion.ConfiguracionUsuariosActivity" />
+        <activity android:name=".ui.configuracion.ConfiguracionInicialActivity" />
         <activity android:name=".ui.editar.EditarVentaActivity" />
         <activity android:name=".ui.balance.BalanceActivity" />
         <activity android:name=".ui.dashboard.DashboardActivity" />

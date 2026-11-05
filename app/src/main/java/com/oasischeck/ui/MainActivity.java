@@ -45,6 +45,7 @@ import com.oasischeck.worker.ReminderWorker;
 import com.oasischeck.worker.SyncRetryWorker;
 import com.oasischeck.ui.util.BackupScheduler;
 import com.oasischeck.ui.util.NotificationHelper;
+import com.oasischeck.ui.configuracion.ConfiguracionInicialActivity;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -63,6 +64,18 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        // Verificar si es la primera vez que se abre la app
+        SharedPreferences prefs = getSharedPreferences("oasischeck_prefs", MODE_PRIVATE);
+        boolean primeraVez = prefs.getBoolean("primera_vez", true);
+        if (primeraVez) {
+            Intent intent = new Intent(this, ConfiguracionInicialActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+            return;
+        }
+
         try {
             setContentView(R.layout.activity_main);
 

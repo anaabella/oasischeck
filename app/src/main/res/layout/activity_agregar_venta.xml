@@ -152,37 +152,6 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- Lugar -->
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Input.Outlined"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Lugar">
-
-                <AutoCompleteTextView
-                    android:id="@+id/spinner_lugar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="none" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Categoría -->
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Input.Outlined"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:hint="Categoría">
-
-                <AutoCompleteTextView
-                    android:id="@+id/spinner_categoria"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="none" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
             <!-- Nombre planta -->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Input.Outlined"
@@ -196,22 +165,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Dueña -->
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Input.Outlined"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:hint="Dueña">
-
-                <AutoCompleteTextView
-                    android:id="@+id/spinner_duenia"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="none" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
