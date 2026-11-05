@@ -55,6 +55,15 @@
             android:textColor="@color/green_primary"
             android:layout_marginBottom="16dp" />
 
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            android:indeterminateTint="@color/green_primary" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/fab_agregar_cuenta"
             android:layout_width="match_parent"
